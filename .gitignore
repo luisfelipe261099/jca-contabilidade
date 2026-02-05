@@ -1,0 +1,15 @@
+# System folders
+jca-erp/uploads/*
+!jca-erp/uploads/.gitkeep
+
+# Logs and temp
+*.log
+jca-erp/uploads/temp/*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
