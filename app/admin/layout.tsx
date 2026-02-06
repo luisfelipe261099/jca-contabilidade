@@ -1,14 +1,20 @@
+'use client';
+
 import Sidebar from '@/components/admin/Sidebar';
+import { usePathname } from 'next/navigation';
 
 export default function AdminLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const pathname = usePathname();
+    const isLoginPage = pathname === '/admin/login';
+
     return (
         <div className="min-h-screen bg-[#020617]">
-            <Sidebar />
-            <main className="pl-64 min-h-screen">
+            {!isLoginPage && <Sidebar />}
+            <main className={`min-h-screen ${!isLoginPage ? 'pl-64' : ''}`}>
                 <div className="w-full">
                     {children}
                 </div>

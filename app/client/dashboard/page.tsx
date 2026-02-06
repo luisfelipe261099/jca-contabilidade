@@ -9,7 +9,9 @@ import {
     AlertCircle,
     CheckCircle2,
     Clock,
-    User
+    User,
+    MessageSquarePlus,
+    FileUp
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -99,19 +101,18 @@ export default async function ClientDashboard() {
                         </div>
                     </div>
 
-                    <div className="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 flex flex-col justify-center gap-6">
-                        <div className="flex items-center justify-between">
-                            <span className="text-slate-400 text-sm font-medium">Contas Pendentes</span>
-                            <span className="px-2 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded-lg uppercase tracking-wider">{pendingTasks.length} Atrasadas</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <span className="text-slate-400 text-sm font-medium">Documentos Novos</span>
-                            <span className="px-2 py-1 bg-blue-500/10 text-blue-500 text-[10px] font-bold rounded-lg uppercase tracking-wider">04 Este Mês</span>
-                        </div>
-                        <div className="h-px bg-slate-800 w-full" />
-                        <button className="w-full py-3 bg-slate-950 border border-slate-800 text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-900 transition-colors">
-                            Precisa de Suporte?
-                        </button>
+                    <div className="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 flex flex-col justify-center gap-4">
+                        <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">Ações Rápidas</div>
+
+                        <Link href="/client/requests" className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-900/20">
+                            <MessageSquarePlus className="w-4 h-4" />
+                            Nova Solicitação
+                        </Link>
+
+                        <Link href="/client/upload" className="w-full py-4 bg-slate-950 border border-slate-800 text-slate-300 rounded-2xl text-sm font-bold hover:bg-slate-900 transition-all flex items-center justify-center gap-2">
+                            <FileUp className="w-4 h-4" />
+                            Enviar Arquivos
+                        </Link>
                     </div>
                 </div>
 

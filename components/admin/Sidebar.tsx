@@ -10,10 +10,13 @@ import {
     Settings,
     LogOut,
     TrendingUp,
-    Briefcase
+    Briefcase,
+    DollarSign,
+    Landmark,
+    ShieldCheck
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
-import { cn } from '@/lib/utils'; // Assuming basic shadcn-like cn utility exists or I'll create it
+import { cn } from '@/lib/utils';
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -22,6 +25,12 @@ export default function Sidebar() {
         { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
         { name: 'Clientes', href: '/admin/clients', icon: Users },
         { name: 'Documentos', href: '/admin/documents', icon: FileText },
+        { name: 'Fiscal', href: '/admin/fiscal', icon: Briefcase },
+        { name: 'Folha / DP', href: '/admin/dp', icon: Users },
+        { name: 'Contábil', href: '/admin/contabil', icon: FileText },
+        { name: 'Societário', href: '/admin/societario', icon: Landmark },
+        { name: 'Financeiro', href: '/admin/financeiro', icon: DollarSign },
+        { name: 'Protocolos', href: '/admin/protocolos', icon: ShieldCheck },
         { name: 'Estratégico (BI)', href: '/admin/bi', icon: TrendingUp },
         { name: 'Configurações', href: '/admin/settings', icon: Settings },
     ];
@@ -40,7 +49,7 @@ export default function Sidebar() {
                 </div>
             </div>
 
-            <nav className="flex-1 px-4 space-y-1">
+            <nav className="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
                 {menuItems.map((item) => {
                     const isActive = pathname === item.href;
                     return (
@@ -55,7 +64,7 @@ export default function Sidebar() {
                             )}
                         >
                             <item.icon className={cn("w-5 h-5", isActive ? "text-blue-500" : "text-slate-500 group-hover:text-slate-300")} />
-                            <span className="font-medium">{item.name}</span>
+                            <span className="font-medium text-sm">{item.name}</span>
                         </Link>
                     );
                 })}
