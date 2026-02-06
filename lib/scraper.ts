@@ -5,11 +5,16 @@ const CHROME_PATHS = [
     'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
     'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
     'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/chromium',
 ];
 
 export async function getBrowser() {
     let executablePath = '';
 
+    // If running on Vercel/Production, we might need a different strategy 
+    // but for now we search common paths.
     for (const path of CHROME_PATHS) {
         if (existsSync(path)) {
             executablePath = path;
@@ -17,8 +22,9 @@ export async function getBrowser() {
         }
     }
 
-    if (!executablePath) {
-        throw new Error('Nenhum navegador (Chrome ou Edge) encontrado no servidor.');
+    if (!executablePath && process.env.NODE_ENV === 'production') {
+        // Fallback or specific error for Vercel environment
+        console.warn('Alerta: Navegador nativo não encontrado no ambiente de produção do Vercel.');
     }
 
     return await puppeteer.launch({

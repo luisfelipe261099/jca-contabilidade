@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import { Plus, Search, Building2, MoreHorizontal } from 'lucide-react';
 import prisma from '@/lib/prisma';

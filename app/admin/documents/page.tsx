@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import OCRReader from '@/components/admin/OCRReader';
 import { Files, Clock, History } from 'lucide-react';

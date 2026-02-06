@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import prisma from '@/lib/prisma';
 import TaskToggle from '@/components/admin/TaskToggle';
 import EditClientTrigger from '@/components/admin/EditClientTrigger';
