@@ -1,15 +1,19 @@
 export const dynamic = 'force-dynamic';
 
-import React from 'react';
+import prisma from '@/lib/prisma';
 import { ShieldCheck, History, UserCheck, FileText, Search, Filter, Download } from 'lucide-react';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
-export default function ProtocolosPage() {
-    const protocols = [
-        { id: 'PRT-2026-001', client: 'Indústria JCA', doc: 'DAS Fev/2026', type: 'Guia', date: '06/02/2026 14:20', receipted: true },
-        { id: 'PRT-2026-002', client: 'Mercado Silveira', doc: 'Folha Pagamento', type: 'Relatório', date: '06/02/2026 10:15', receipted: false },
-        { id: 'PRT-2026-003', client: 'Transportes Rápidos', doc: 'CND Municipal', type: 'Certidão', date: '05/02/2026 16:45', receipted: true },
-        { id: 'PRT-2026-004', client: 'Tech Services', doc: 'Contrato Social', type: 'Legal', date: '04/02/2026 11:30', receipted: true },
-    ];
+export default async function ProtocolosPage() {
+    const protocols = await prisma.protocol.findMany({
+        include: { client: true },
+        orderBy: { createdAt: 'desc' }
+    });
+
+    const sent = protocols.length;
+    const pending = protocols.filter(p => !p.receivedAt).length; // Assuming no receivedAt means pending/sent but not confirmed
+    const confirmed = protocols.filter(p => p.receivedAt).length;
 
     return (
         <div className="p-8">
@@ -29,16 +33,16 @@ export default function ProtocolosPage() {
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
-                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">Enviados (Mês)</div>
-                    <div className="text-3xl font-bold text-white">452</div>
+                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">Enviados</div>
+                    <div className="text-3xl font-bold text-white">{sent}</div>
                 </div>
                 <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
                     <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">Aguardando Leitura</div>
-                    <div className="text-3xl font-bold text-amber-500">28</div>
+                    <div className="text-3xl font-bold text-amber-500">{pending}</div>
                 </div>
                 <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
-                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">Vistos / Recebidos</div>
-                    <div className="text-3xl font-bold text-emerald-500">424</div>
+                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">Confirmados</div>
+                    <div className="text-3xl font-bold text-emerald-500">{confirmed}</div>
                 </div>
             </div>
 
@@ -52,11 +56,6 @@ export default function ProtocolosPage() {
                             placeholder="Buscar por cliente ou protocolo..."
                             className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-12 pr-4 text-sm text-white focus:outline-none focus:border-blue-500 transition-all"
                         />
-                    </div>
-                    <div className="flex gap-2">
-                        <button className="p-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-400 hover:text-white transition-all">
-                            <Filter className="w-4 h-4" />
-                        </button>
                     </div>
                 </div>
 
@@ -73,17 +72,19 @@ export default function ProtocolosPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-800">
-                            {protocols.map((p, i) => (
-                                <tr key={i} className="hover:bg-slate-800/20 transition-all group">
-                                    <td className="p-6 text-sm font-mono text-blue-400">{p.id}</td>
-                                    <td className="p-6 text-sm text-white font-medium">{p.client}</td>
+                            {protocols.map((p: any) => (
+                                <tr key={p.id} className="hover:bg-slate-800/20 transition-all group">
+                                    <td className="p-6 text-sm font-mono text-blue-400">{p.code}</td>
+                                    <td className="p-6 text-sm text-white font-medium">{p.client.name}</td>
                                     <td className="p-6">
-                                        <div className="text-sm text-white font-medium">{p.doc}</div>
+                                        <div className="text-sm text-white font-medium">{p.description}</div>
                                         <div className="text-[10px] text-slate-500 font-bold uppercase">{p.type}</div>
                                     </td>
-                                    <td className="p-6 text-xs text-slate-400">{p.date}</td>
+                                    <td className="p-6 text-xs text-slate-400">
+                                        {format(p.createdAt, "dd/MM/yyyy HH:mm")}
+                                    </td>
                                     <td className="p-6">
-                                        {p.receipted ? (
+                                        {p.receivedAt ? (
                                             <span className="flex items-center gap-1.5 text-emerald-500 text-xs font-bold uppercase tracking-wider">
                                                 <UserCheck className="w-3.5 h-3.5" />
                                                 Confirmado
@@ -102,6 +103,11 @@ export default function ProtocolosPage() {
                                     </td>
                                 </tr>
                             ))}
+                            {protocols.length === 0 && (
+                                <tr>
+                                    <td colSpan={6} className="p-10 text-center text-slate-500 italic">Nenhum protocolo encontrado.</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

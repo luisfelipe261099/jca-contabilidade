@@ -1,22 +1,20 @@
 export const dynamic = 'force-dynamic';
 
-import React from 'react';
+import prisma from '@/lib/prisma';
 import { Wallet, TrendingUp, AlertTriangle, ArrowUpRight, ArrowDownRight, DollarSign, Calendar } from 'lucide-react';
 
-export default function FinanceiroPage() {
-    const metrics = [
-        { label: 'Receita Prevista (Fev)', value: 'R$ 84.200', change: '+5.2%', isUp: true },
-        { label: 'Honorários Recebidos', value: 'R$ 62.150', change: '+12%', isUp: true },
-        { label: 'Inadimplência', value: '4.2%', change: '+0.5%', isUp: false },
-        { label: 'Ticket Médio', value: 'R$ 1.150', change: '-2.1%', isUp: false },
-    ];
+export default async function FinanceiroPage() {
+    const records = await prisma.financialRecord.findMany({
+        where: { type: 'REVENUE' },
+        orderBy: { dueDate: 'asc' }
+    });
 
-    const upcomingPayments = [
-        { client: 'Mercado Silveira LTDA', amount: 'R$ 1.500,00', due: '10/02/2026', status: 'Pending' },
-        { client: 'Logística Express', amount: 'R$ 2.850,00', due: '12/02/2026', status: 'Late' },
-        { client: 'Consultoria Tech', amount: 'R$ 1.200,00', due: '15/02/2026', status: 'Pending' },
-        { client: 'Padaria Central', amount: 'R$ 850,00', due: '15/02/2026', status: 'Pending' },
-    ];
+    const totalRevenue = records.reduce((acc: number, r: any) => acc + r.amount, 0);
+    const paidRevenue = records.filter((r: any) => r.status === 'PAID').reduce((acc: number, r: any) => acc + r.amount, 0);
+    const pendingRevenue = records.filter((r: any) => r.status === 'PENDING').reduce((acc: number, r: any) => acc + r.amount, 0);
+    const overdueRevenue = records.filter((r: any) => r.status === 'OVERDUE').reduce((acc: number, r: any) => acc + r.amount, 0);
+
+    const upcomingPayments = records.filter((r: any) => r.status === 'PENDING' || r.status === 'OVERDUE').slice(0, 5);
 
     return (
         <div className="p-8">
@@ -33,18 +31,42 @@ export default function FinanceiroPage() {
 
             {/* Metrics Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                {metrics.map((m, i) => (
-                    <div key={i} className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
-                        <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">{m.label}</div>
-                        <div className="text-2xl font-bold text-white flex items-end gap-3 truncate">
-                            {m.value}
-                            <span className={`text-[10px] pb-1 flex items-center gap-0.5 ${m.isUp ? 'text-emerald-500' : 'text-rose-500'}`}>
-                                {m.isUp ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                                {m.change}
-                            </span>
-                        </div>
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
+                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">Receita Total (Mês)</div>
+                    <div className="text-2xl font-bold text-white flex items-end gap-3 truncate">
+                        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalRevenue)}
+                        <span className="text-[10px] pb-1 flex items-center gap-0.5 text-emerald-500">
+                            <ArrowUpRight className="w-3 h-3" />
+                            +5.2%
+                        </span>
                     </div>
-                ))}
+                </div>
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
+                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">Recebido</div>
+                    <div className="text-2xl font-bold text-white flex items-end gap-3 truncate">
+                        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(paidRevenue)}
+                        <span className="text-[10px] pb-1 flex items-center gap-0.5 text-emerald-500">
+                            <ArrowUpRight className="w-3 h-3" />
+                            +12%
+                        </span>
+                    </div>
+                </div>
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
+                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">Pendente</div>
+                    <div className="text-2xl font-bold text-white flex items-end gap-3 truncate">
+                        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(pendingRevenue)}
+                    </div>
+                </div>
+                <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
+                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">Inadimplência</div>
+                    <div className="text-2xl font-bold text-white flex items-end gap-3 truncate">
+                        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(overdueRevenue)}
+                        <span className="text-[10px] pb-1 flex items-center gap-0.5 text-rose-500">
+                            <ArrowDownRight className="w-3 h-3" />
+                            -2.1%
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -55,25 +77,30 @@ export default function FinanceiroPage() {
                         Próximas Receitas
                     </h2>
                     <div className="space-y-4">
-                        {upcomingPayments.map((p, i) => (
-                            <div key={i} className="flex items-center justify-between p-4 bg-slate-950 rounded-2xl border border-slate-900 hover:border-blue-500/30 transition-all group">
+                        {upcomingPayments.map((p: any) => (
+                            <div key={p.id} className="flex items-center justify-between p-4 bg-slate-950 rounded-2xl border border-slate-900 hover:border-blue-500/30 transition-all group">
                                 <div className="flex items-center gap-4">
-                                    <div className={`p-3 rounded-xl ${p.status === 'Late' ? 'bg-rose-500/10' : 'bg-slate-900'}`}>
-                                        <Wallet className={`w-5 h-5 ${p.status === 'Late' ? 'text-rose-500' : 'text-slate-400'}`} />
+                                    <div className={`p-3 rounded-xl ${p.status === 'OVERDUE' ? 'bg-rose-500/10' : 'bg-slate-900'}`}>
+                                        <Wallet className={`w-5 h-5 ${p.status === 'OVERDUE' ? 'text-rose-500' : 'text-slate-400'}`} />
                                     </div>
                                     <div>
-                                        <div className="font-bold text-white group-hover:text-blue-400 transition-colors">{p.client}</div>
-                                        <div className="text-xs text-slate-500">Vencimento: {p.due}</div>
+                                        <div className="font-bold text-white group-hover:text-blue-400 transition-colors">{p.description}</div>
+                                        <div className="text-xs text-slate-500">Vencimento: {new Date(p.dueDate).toLocaleDateString()}</div>
                                     </div>
                                 </div>
                                 <div className="text-right">
-                                    <div className="font-bold text-white">{p.amount}</div>
-                                    <div className={`text-[10px] font-bold uppercase ${p.status === 'Late' ? 'text-rose-500' : 'text-slate-500'}`}>
-                                        {p.status === 'Late' ? 'Atrasado' : 'Aguardando'}
+                                    <div className="font-bold text-white">
+                                        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(p.amount)}
+                                    </div>
+                                    <div className={`text-[10px] font-bold uppercase ${p.status === 'OVERDUE' ? 'text-rose-500' : 'text-slate-500'}`}>
+                                        {p.status === 'OVERDUE' ? 'Atrasado' : 'Aguardando'}
                                     </div>
                                 </div>
                             </div>
                         ))}
+                        {upcomingPayments.length === 0 && (
+                            <div className="text-center py-10 text-slate-500 italic">Nenhum pagamento pendente.</div>
+                        )}
                     </div>
                 </div>
 
@@ -96,9 +123,11 @@ export default function FinanceiroPage() {
                             Ações Requeridas
                         </h3>
                         <div className="space-y-4">
-                            <button className="w-full text-left text-xs bg-slate-950 p-3 rounded-xl border border-slate-800 hover:border-slate-600 transition-all text-slate-300">
-                                Enviar lembrete de atraso (3 clientes)
-                            </button>
+                            {overdueRevenue > 0 && (
+                                <button className="w-full text-left text-xs bg-slate-950 p-3 rounded-xl border border-slate-800 hover:border-slate-600 transition-all text-slate-300">
+                                    Enviar lembrete de atraso (Inadimplentes)
+                                </button>
+                            )}
                             <button className="w-full text-left text-xs bg-slate-950 p-3 rounded-xl border border-slate-800 hover:border-slate-600 transition-all text-slate-300">
                                 Revisar contratos sem reajuste
                             </button>

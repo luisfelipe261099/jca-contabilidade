@@ -30,8 +30,14 @@ model Client {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   responsible   User?        @relation("ResponsibleEmployee", fields: [responsibleId], references: [id])
-  documents     Document[]
-  tasks         Task[]
+  documents       Document[]
+  tasks           Task[]
+  taxes           Tax[]
+  employees       Employee[]
+  legalProcesses  LegalProcess[]
+  protocols       Protocol[]
+  financialRecords FinancialRecord[]
+  tickets         Ticket[]
 
   @@index([responsibleId], map: "Client_responsibleId_fkey")
 }
@@ -62,6 +68,91 @@ model Document {
   client    Client   @relation(fields: [clientId], references: [id])
 
   @@index([clientId], map: "Document_clientId_fkey")
+}
+
+model Tax {
+  id          String   @id @default(cuid())
+  name        String
+  amount      Float
+  dueDate     DateTime
+  status      String   @default("PENDING") // PENDING, PAID, LATE
+  clientId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "Tax_clientId_fkey")
+}
+
+model Employee {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  admissionDate DateTime
+  salary      Float
+  status      String   @default("ACTIVE") // ACTIVE, VACATION, TERMINATED
+  clientId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "Employee_clientId_fkey")
+}
+
+model LegalProcess {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  status      String   @default("OPEN") // OPEN, IN_PROGRESS, DONE
+  stage       String?
+  clientId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "LegalProcess_clientId_fkey")
+}
+
+model Protocol {
+  id          String   @id @default(cuid())
+  code        String   @unique // e.g., PRT-2026-001
+  type        String
+  description String
+  receivedAt  DateTime?
+  clientId    String
+  createdAt   DateTime @default(now())
+  client      Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "Protocol_clientId_fkey")
+}
+
+model FinancialRecord {
+  id          String   @id @default(cuid())
+  description String
+  amount      Float
+  type        String   @default("INCOME") // INCOME, EXPENSE
+  dueDate     DateTime
+  status      String   @default("PENDING") // PENDING, PAID, LATE
+  clientId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client?  @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "FinancialRecord_clientId_fkey")
+}
+
+model Ticket {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  status      String   @default("OPEN") // OPEN, IN_PROGRESS, CLOSED
+  priority    String   @default("NORMAL")
+  clientId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "Ticket_clientId_fkey")
 }
 
 enum Role {
