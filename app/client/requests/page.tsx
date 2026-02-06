@@ -48,7 +48,7 @@ export default async function ClientRequestsPage() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-6">
-                        {tickets.map((t) => (
+                        {tickets.map((t: any) => (
                             <div key={t.id} className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl hover:border-blue-500/30 transition-all group">
                                 <div className="flex justify-between items-start mb-4">
                                     <div>
