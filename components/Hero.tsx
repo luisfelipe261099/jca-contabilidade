@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function Hero() {
     return (
-        <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+        <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 px-6 overflow-hidden">
             {/* Background Effects */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 blur-[120px] rounded-full animate-pulse" />
@@ -11,7 +11,7 @@ export default function Hero() {
             </div>
 
             <div className="max-w-7xl mx-auto text-center relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 md:mb-8">
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
@@ -19,11 +19,11 @@ export default function Hero() {
                     JCA Soluções Contábeis
                 </div>
 
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8 text-white text-balance">
+                <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight mb-6 md:mb-8 text-white text-balance">
                     Soluções contábeis sob medida para o <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">crescimento da sua empresa.</span>
                 </h1>
 
-                <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-base md:text-xl text-slate-400 mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed">
                     Do MEI às grandes empresas. Atendemos mais de 100 clientes com pacotes flexíveis:
                     Contábil, RH, Fiscal ou Full-Service. Focamos na burocracia para você focar no negócio.
                 </p>

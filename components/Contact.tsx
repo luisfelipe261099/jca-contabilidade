@@ -3,18 +3,18 @@ import { Mail, MapPin, Phone, MessageCircle } from 'lucide-react';
 
 export default function Contact() {
     return (
-        <section id="contato" className="py-24 px-6 bg-slate-950 border-t border-slate-900">
+        <section id="contato" className="py-16 md:py-24 px-6 bg-slate-950 border-t border-slate-900">
             <div className="max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6">
                             Fale Conosco
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
                             Pronto para evoluir a <br />
                             <span className="text-emerald-500">gestão do seu negócio?</span>
                         </h2>
-                        <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+                        <p className="text-slate-400 text-base md:text-lg mb-10 leading-relaxed">
                             Não perca tempo com dúvidas. Entre em contato agora e descubra como a JCA pode customizar a solução perfeita para sua empresa.
                         </p>
 
