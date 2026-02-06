@@ -24,10 +24,10 @@ export default function Header() {
                     <a href="/apoio" className="hover:text-white transition-colors">Apoio</a>
                     <a href="/#contato" className="hover:text-white transition-colors">Contato</a>
                     <a
-                        href="#"
-                        className="px-5 py-2.5 bg-slate-800 text-slate-500 cursor-not-allowed rounded-full transition-all flex items-center gap-2 border border-slate-700/50"
+                        href="/admin/login"
+                        className="px-5 py-2.5 bg-blue-600/10 border border-blue-600/20 text-blue-400 hover:text-white hover:bg-blue-600 hover:border-blue-600 rounded-full transition-all flex items-center gap-2 font-bold"
                     >
-                        ERP em Breve
+                        Acessar ERP
                     </a>
                     <a
                         href="#contato"
