@@ -69,6 +69,7 @@ model Document {
   name      String
   url       String
   type      String   // Nota, Guia, Contrato
+  content   Bytes?
   clientId  String
   client    Client   @relation(fields: [clientId], references: [id])
   createdAt DateTime @default(now())
