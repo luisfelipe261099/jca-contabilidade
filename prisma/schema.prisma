@@ -7,6 +7,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      Role     @default(EMPLOYEE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  clientId  String?
+  clients   Client[] @relation("ResponsibleEmployee")
+}
+
+model Client {
+  id            String       @id @default(cuid())
+  name          String
+  cnpj          String       @unique
+  regime        TaxRegime
+  status        ClientStatus @default(ATENDIMENTO)
+  responsibleId String?
+  lastSync      DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  responsible   User?        @relation("ResponsibleEmployee", fields: [responsibleId], references: [id])
+  documents     Document[]
+  tasks         Task[]
+
+  @@index([responsibleId], map: "Client_responsibleId_fkey")
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime
+  completed   Boolean  @default(false)
+  category    String
+  clientId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "Task_clientId_fkey")
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  type      String
+  clientId  String
+  createdAt DateTime @default(now())
+  content   Bytes?
+  client    Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "Document_clientId_fkey")
+}
+
 enum Role {
   ADMIN
   EMPLOYEE
@@ -24,55 +81,4 @@ enum TaxRegime {
   LUCRO_PRESUMIDO
   LUCRO_REAL
   MEI
-}
-
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
-  role      Role     @default(EMPLOYEE)
-  clientId  String?  // Link to specific client if Role is CLIENT
-  clients   Client[] @relation("ResponsibleEmployee")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Client {
-  id              String       @id @default(cuid())
-  name            String
-  cnpj            String       @unique
-  regime          TaxRegime
-  status          ClientStatus @default(ATENDIMENTO)
-  responsibleId   String?
-  responsible     User?        @relation("ResponsibleEmployee", fields: [responsibleId], references: [id])
-  lastSync        DateTime?
-  tasks           Task[]
-  documents       Document[]
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-}
-
-model Task {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  dueDate     DateTime
-  completed   Boolean  @default(false)
-  category    String   // Fiscal, RH, Contábil
-  clientId    String
-  client      Client   @relation(fields: [clientId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Document {
-  id        String   @id @default(cuid())
-  name      String
-  url       String
-  type      String   // Nota, Guia, Contrato
-  content   Bytes?
-  clientId  String
-  client    Client   @relation(fields: [clientId], references: [id])
-  createdAt DateTime @default(now())
 }
