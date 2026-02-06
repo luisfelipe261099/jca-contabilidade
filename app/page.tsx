@@ -26,10 +26,10 @@ export default function Home() {
                         <a href="#" className="hover:text-white transition-colors">Soluções</a>
                         <a href="#" className="hover:text-white transition-colors">Contato</a>
                         <a
-                            href="/login"
-                            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2"
+                            href="#"
+                            className="px-5 py-2.5 bg-slate-800 text-slate-500 cursor-not-allowed rounded-full transition-all flex items-center gap-2"
                         >
-                            Acessar ERP
+                            ERP em Breve
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
                         </a>
                     </div>
