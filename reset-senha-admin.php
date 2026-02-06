@@ -4,25 +4,25 @@
  * Execute este arquivo para resetar a senha para: admin123
  */
 
-// Configurações do banco
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
-$db_name = 'jca_erp';
+// Configurações do banco (Lendo de variáveis de ambiente se disponíveis)
+$db_host = getenv('DB_HOST') ?: 'localhost';
+$db_user = getenv('DB_USER') ?: 'root';
+$db_pass = getenv('DB_PASS') ?: '';
+$db_name = getenv('DB_NAME') ?: 'jca_erp';
 
 try {
     // Conecta ao banco
     $conn = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8mb4", $db_user, $db_pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
+
     // Nova senha
     $novaSenha = 'admin123';
     $hash = password_hash($novaSenha, PASSWORD_DEFAULT);
-    
+
     // Atualiza a senha do admin
     $stmt = $conn->prepare("UPDATE usuarios SET senha = ? WHERE email = 'admin@jcacontabilidade.com.br'");
     $stmt->execute([$hash]);
-    
+
     if ($stmt->rowCount() > 0) {
         echo "✅ Senha resetada com sucesso!\n\n";
         echo "Email: admin@jcacontabilidade.com.br\n";
@@ -32,7 +32,7 @@ try {
         echo "❌ Usuário admin não encontrado no banco de dados.\n";
         echo "Execute o instalador primeiro: install.php\n";
     }
-    
+
 } catch (PDOException $e) {
     echo "❌ Erro: " . $e->getMessage() . "\n\n";
     echo "Certifique-se que:\n";
@@ -44,6 +44,7 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,13 +59,15 @@ try {
             justify-content: center;
             padding: 20px;
         }
+
         .card {
             max-width: 500px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
+
 <body>
     <div class="card">
         <div class="card-body p-5 text-center">
@@ -81,5 +84,5 @@ try {
         </div>
     </div>
 </body>
-</html>
 
+</html>
