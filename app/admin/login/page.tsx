@@ -18,19 +18,29 @@ export default function LoginPage() {
         setError('');
 
         try {
+            // Tentativa de login
             const res = await signIn('credentials', {
                 email,
                 password,
                 redirect: false,
+                callbackUrl: '/admin/dashboard'
             });
 
             if (res?.error) {
-                setError('Credenciais inválidas. Tente novamente.');
+                if (res.error === 'CredentialsSignin') {
+                    setError('E-mail ou senha incorretos.');
+                } else {
+                    setError(`Erro: ${res.error}. Verifique a conexão com o banco.`);
+                }
+            } else if (res?.url) {
+                // Força o redirecionamento se o NextAuth retornou uma URL
+                window.location.href = res.url;
             } else {
                 router.push('/admin/dashboard');
             }
-        } catch (err) {
-            setError('Ocorreu um erro ao entrar. Tente mais tarde.');
+        } catch (err: any) {
+            setError('Erro de conexão com o servidor.');
+            console.error('Login Error:', err);
         } finally {
             setLoading(false);
         }
