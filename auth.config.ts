@@ -7,11 +7,20 @@ export const authConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
+            const userRole = (auth?.user as any)?.role;
             const isOnAdmin = nextUrl.pathname.startsWith('/admin');
+            const isOnClient = nextUrl.pathname.startsWith('/client');
+
             if (isOnAdmin) {
-                if (isLoggedIn) return true;
-                return false; // Redirect unauthenticated users to login page
+                if (isLoggedIn && userRole !== 'CLIENT') return true;
+                return false;
+            } else if (isOnClient) {
+                if (isLoggedIn && userRole === 'CLIENT') return true;
+                return false;
             } else if (isLoggedIn) {
+                if (userRole === 'CLIENT') {
+                    return Response.redirect(new URL('/client/dashboard', nextUrl));
+                }
                 return Response.redirect(new URL('/admin/dashboard', nextUrl));
             }
             return true;

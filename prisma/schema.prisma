@@ -10,6 +10,7 @@ datasource db {
 enum Role {
   ADMIN
   EMPLOYEE
+  CLIENT
 }
 
 enum ClientStatus {
@@ -31,6 +32,7 @@ model User {
   name      String?
   password  String
   role      Role     @default(EMPLOYEE)
+  clientId  String?  // Link to specific client if Role is CLIENT
   clients   Client[] @relation("ResponsibleEmployee")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
