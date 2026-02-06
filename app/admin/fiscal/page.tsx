@@ -9,8 +9,8 @@ export default async function FiscalPage() {
         orderBy: { dueDate: 'asc' }
     });
 
-    const totalTaxes = taxes.reduce((acc, tax) => acc + tax.amount, 0);
-    const pendingTaxes = taxes.filter(t => t.status === 'PENDING').length;
+    const totalTaxes = taxes.reduce((acc: number, tax: any) => acc + tax.amount, 0);
+    const pendingTaxes = taxes.filter((t: any) => t.status === 'PENDING').length;
 
     return (
         <div className="p-8">
@@ -65,7 +65,7 @@ export default async function FiscalPage() {
                     Cronograma de Vencimentos
                 </h2>
                 <div className="space-y-4">
-                    {taxes.map((tax) => (
+                    {taxes.map((tax: any) => (
                         <div key={tax.id} className="flex items-center justify-between p-5 bg-slate-950 rounded-xl border border-slate-900 hover:border-blue-500/30 transition-all group">
                             <div>
                                 <div className="font-bold text-white group-hover:text-blue-400 transition-colors">{tax.name}</div>
@@ -79,7 +79,7 @@ export default async function FiscalPage() {
                                     {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(tax.amount)}
                                 </div>
                                 <div className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full inline-block mt-1 ${tax.status === 'PAID' ? 'bg-emerald-500/20 text-emerald-500' :
-                                        tax.status === 'LATE' ? 'bg-rose-500/20 text-rose-500' : 'bg-amber-500/20 text-amber-500'
+                                    tax.status === 'LATE' ? 'bg-rose-500/20 text-rose-500' : 'bg-amber-500/20 text-amber-500'
                                     }`}>
                                     {tax.status === 'PAID' ? 'PAGO' : tax.status === 'LATE' ? 'ATRASADO' : 'ABERTO'}
                                 </div>

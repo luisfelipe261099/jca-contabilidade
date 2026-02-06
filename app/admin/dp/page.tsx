@@ -10,9 +10,9 @@ export default async function DPPage() {
     });
 
     const totalEmployees = employees.length;
-    const activeEmployees = employees.filter(e => e.status === 'ACTIVE').length;
-    const vacationEmployees = employees.filter(e => e.status === 'VACATION').length;
-    const totalPayroll = employees.reduce((acc, emp) => acc + emp.salary, 0);
+    const activeEmployees = employees.filter((e: any) => e.status === 'ACTIVE').length;
+    const vacationEmployees = employees.filter((e: any) => e.status === 'VACATION').length;
+    const totalPayroll = employees.reduce((acc: number, emp: any) => acc + emp.salary, 0);
 
     return (
         <div className="p-8">
@@ -63,7 +63,7 @@ export default async function DPPage() {
                     Quadro de Funcionários
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {employees.map((emp) => (
+                    {employees.map((emp: any) => (
                         <div key={emp.id} className="flex items-center justify-between p-4 bg-slate-950 rounded-xl border border-slate-900">
                             <div>
                                 <div className="font-bold text-white">{emp.name}</div>

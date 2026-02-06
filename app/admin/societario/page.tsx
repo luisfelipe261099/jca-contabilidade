@@ -11,9 +11,9 @@ export default async function SocietarioPage() {
         orderBy: { updatedAt: 'desc' }
     });
 
-    const pending = processes.filter(p => p.status === 'OPEN').length;
-    const inProgress = processes.filter(p => p.status === 'IN_PROGRESS').length;
-    const done = processes.filter(p => p.status === 'DONE').length;
+    const pending = processes.filter((p: any) => p.status === 'OPEN').length;
+    const inProgress = processes.filter((p: any) => p.status === 'IN_PROGRESS').length;
+    const done = processes.filter((p: any) => p.status === 'DONE').length;
 
     return (
         <div className="p-8">
@@ -70,7 +70,7 @@ export default async function SocietarioPage() {
                 </div>
 
                 <div className="divide-y divide-slate-800">
-                    {processes.map((p) => (
+                    {processes.map((p: any) => (
                         <div key={p.id} className="p-6 flex flex-col md:flex-row md:items-center justify-between hover:bg-slate-900/20 transition-all gap-4">
                             <div className="flex items-center gap-4">
                                 <div className={`w-2 h-2 rounded-full ${p.status === 'DONE' ? 'bg-emerald-500' : p.status === 'OPEN' ? 'bg-amber-500' : 'bg-blue-500'}`} />

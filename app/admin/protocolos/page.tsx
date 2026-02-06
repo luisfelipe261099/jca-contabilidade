@@ -12,8 +12,8 @@ export default async function ProtocolosPage() {
     });
 
     const sent = protocols.length;
-    const pending = protocols.filter(p => !p.receivedAt).length; // Assuming no receivedAt means pending/sent but not confirmed
-    const confirmed = protocols.filter(p => p.receivedAt).length;
+    const pending = protocols.filter((p: any) => !p.receivedAt).length; // Assuming no receivedAt means pending/sent but not confirmed
+    const confirmed = protocols.filter((p: any) => p.receivedAt).length;
 
     return (
         <div className="p-8">
