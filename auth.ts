@@ -26,19 +26,46 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     providers: [
         Credentials({
             async authorize(credentials) {
+                console.log('🔐 [AUTH] Starting authorization...');
+                console.log('🔐 [AUTH] Credentials received:', {
+                    email: credentials?.email,
+                    hasPassword: !!credentials?.password
+                });
+
                 const parsedCredentials = z
                     .object({ email: z.string().email(), password: z.string().min(6) })
                     .safeParse(credentials);
 
+                console.log('🔐 [AUTH] Validation result:', {
+                    success: parsedCredentials.success,
+                    errors: parsedCredentials.success ? null : parsedCredentials.error.issues
+                });
+
                 if (parsedCredentials.success) {
                     const { email, password } = parsedCredentials.data;
-                    const user = await prisma.user.findUnique({ where: { email } });
-                    if (!user) return null;
-                    const passwordsMatch = await bcrypt.compare(password, user.password);
+                    console.log('🔐 [AUTH] Looking for user:', email);
 
-                    if (passwordsMatch) return user;
+                    const user = await prisma.user.findUnique({ where: { email } });
+                    console.log('🔐 [AUTH] User found:', !!user);
+
+                    if (!user) {
+                        console.log('❌ [AUTH] User not found in database');
+                        return null;
+                    }
+
+                    console.log('🔐 [AUTH] Comparing passwords...');
+                    const passwordsMatch = await bcrypt.compare(password, user.password);
+                    console.log('🔐 [AUTH] Password match:', passwordsMatch);
+
+                    if (passwordsMatch) {
+                        console.log('✅ [AUTH] Login successful for:', email);
+                        return user;
+                    } else {
+                        console.log('❌ [AUTH] Password mismatch');
+                    }
                 }
 
+                console.log('❌ [AUTH] Authorization failed');
                 return null;
             },
         }),
