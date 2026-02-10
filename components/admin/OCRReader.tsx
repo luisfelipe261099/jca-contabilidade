@@ -13,12 +13,14 @@ export default function OCRReader({ clients }: { clients: any[] }) {
     const [selectedClientId, setSelectedClientId] = useState('');
     const [launching, setLaunching] = useState(false);
     const [fileName, setFileName] = useState('');
+    const [selectedFile, setFile] = useState<File | null>(null);
 
     async function handleOCR(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
         if (!file) return;
 
         setFileName(file.name);
+        setFile(file); // Store file
         setLoading(true);
         setOcrText('');
         setExtractedData({});
@@ -54,10 +56,12 @@ export default function OCRReader({ clients }: { clients: any[] }) {
 
     async function handleLaunch() {
         if (!selectedClientId) return alert('Selecione um cliente para lançar.');
+        if (!selectedFile) return alert('Nenhum arquivo selecionado.');
 
         setLaunching(true);
         const formData = new FormData();
         formData.append('clientId', selectedClientId);
+        formData.append('file', selectedFile);
         formData.append('fileName', fileName);
         formData.append('cnpj', extractedData.cnpj || '');
         formData.append('value', extractedData.valor || '');

@@ -48,14 +48,23 @@ export async function launchDocument(formData: FormData) {
     const fileName = formData.get('fileName') as string;
     const extractedValue = formData.get('value') as string;
     const extractedCnpj = formData.get('cnpj') as string;
+    const file = formData.get('file') as File;
+
+    if (!file) {
+        return { error: 'Arquivo não recebido no servidor.' };
+    }
 
     try {
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
         await prisma.document.create({
             data: {
                 name: fileName,
                 url: `/uploads/${fileName}`,
                 type: 'OUTROS',
                 clientId,
+                content: buffer
             }
         });
 

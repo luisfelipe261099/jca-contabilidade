@@ -45,13 +45,18 @@ export async function uploadClientDocument(formData: FormData) {
             }
         });
 
-        // Create Document Record
+        // Convert file to Buffer for DB storage
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        // Create Document Record with Content
         await prisma.document.create({
             data: {
                 name: file.name,
-                url: `/uploads/${file.name}`, // Placeholder URL
+                url: `/uploads/${file.name}`, // Placeholder, but content is real
                 type: 'OUTROS',
-                clientId: clientId
+                clientId: clientId,
+                content: buffer // <--- Saving the actual file
             }
         });
 
