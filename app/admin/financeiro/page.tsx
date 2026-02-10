@@ -5,16 +5,16 @@ import { Wallet, TrendingUp, AlertTriangle, ArrowUpRight, ArrowDownRight, Dollar
 
 export default async function FinanceiroPage() {
     const records = await prisma.financialRecord.findMany({
-        where: { type: 'REVENUE' },
+        where: { type: 'INCOME' },
         orderBy: { dueDate: 'asc' }
     });
 
     const totalRevenue = records.reduce((acc: number, r: any) => acc + r.amount, 0);
     const paidRevenue = records.filter((r: any) => r.status === 'PAID').reduce((acc: number, r: any) => acc + r.amount, 0);
     const pendingRevenue = records.filter((r: any) => r.status === 'PENDING').reduce((acc: number, r: any) => acc + r.amount, 0);
-    const overdueRevenue = records.filter((r: any) => r.status === 'OVERDUE').reduce((acc: number, r: any) => acc + r.amount, 0);
+    const overdueRevenue = records.filter((r: any) => r.status === 'LATE').reduce((acc: number, r: any) => acc + r.amount, 0);
 
-    const upcomingPayments = records.filter((r: any) => r.status === 'PENDING' || r.status === 'OVERDUE').slice(0, 5);
+    const upcomingPayments = records.filter((r: any) => r.status === 'PENDING' || r.status === 'LATE').slice(0, 5);
 
     return (
         <div className="p-8">
@@ -80,8 +80,8 @@ export default async function FinanceiroPage() {
                         {upcomingPayments.map((p: any) => (
                             <div key={p.id} className="flex items-center justify-between p-4 bg-slate-950 rounded-2xl border border-slate-900 hover:border-blue-500/30 transition-all group">
                                 <div className="flex items-center gap-4">
-                                    <div className={`p-3 rounded-xl ${p.status === 'OVERDUE' ? 'bg-rose-500/10' : 'bg-slate-900'}`}>
-                                        <Wallet className={`w-5 h-5 ${p.status === 'OVERDUE' ? 'text-rose-500' : 'text-slate-400'}`} />
+                                    <div className={`p-3 rounded-xl ${p.status === 'LATE' ? 'bg-rose-500/10' : 'bg-slate-900'}`}>
+                                        <Wallet className={`w-5 h-5 ${p.status === 'LATE' ? 'text-rose-500' : 'text-slate-400'}`} />
                                     </div>
                                     <div>
                                         <div className="font-bold text-white group-hover:text-blue-400 transition-colors">{p.description}</div>
@@ -92,8 +92,8 @@ export default async function FinanceiroPage() {
                                     <div className="font-bold text-white">
                                         {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(p.amount)}
                                     </div>
-                                    <div className={`text-[10px] font-bold uppercase ${p.status === 'OVERDUE' ? 'text-rose-500' : 'text-slate-500'}`}>
-                                        {p.status === 'OVERDUE' ? 'Atrasado' : 'Aguardando'}
+                                    <div className={`text-[10px] font-bold uppercase ${p.status === 'LATE' ? 'text-rose-500' : 'text-slate-500'}`}>
+                                        {p.status === 'LATE' ? 'Atrasado' : 'Aguardando'}
                                     </div>
                                 </div>
                             </div>

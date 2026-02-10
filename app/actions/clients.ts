@@ -52,15 +52,10 @@ export async function launchDocument(formData: FormData) {
     try {
         await prisma.document.create({
             data: {
-                title: fileName,
-                fileUrl: `/uploads/${fileName}`, // Placeholder for local simulated storage
+                name: fileName,
+                url: `/uploads/${fileName}`,
                 type: 'OUTROS',
                 clientId,
-                metadata: {
-                    extractedCnpj,
-                    extractedValue,
-                    launchedAt: new Date().toISOString()
-                }
             }
         });
 
@@ -109,7 +104,13 @@ export async function updateClient(id: string, formData: FormData) {
 
 export async function deleteClient(id: string) {
     try {
-        // Delete associated tasks and documents first if not handled by database schema (cascade)
+        // Delete ALL associated records first (no cascade in schema)
+        await prisma.ticket.deleteMany({ where: { clientId: id } });
+        await prisma.financialRecord.deleteMany({ where: { clientId: id } });
+        await prisma.protocol.deleteMany({ where: { clientId: id } });
+        await prisma.legalProcess.deleteMany({ where: { clientId: id } });
+        await prisma.employee.deleteMany({ where: { clientId: id } });
+        await prisma.tax.deleteMany({ where: { clientId: id } });
         await prisma.task.deleteMany({ where: { clientId: id } });
         await prisma.document.deleteMany({ where: { clientId: id } });
 
