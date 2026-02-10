@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
     LayoutDashboard,
     Users,
+    UserPlus,
     FileText,
     Settings,
     LogOut,
@@ -24,6 +25,7 @@ export default function Sidebar() {
     const menuItems = [
         { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
         { name: 'Clientes', href: '/admin/clients', icon: Users },
+        { name: 'Usuários', href: '/admin/users', icon: UserPlus },
         { name: 'Documentos', href: '/admin/documents', icon: FileText },
         { name: 'Fiscal', href: '/admin/fiscal', icon: Briefcase },
         { name: 'Folha / DP', href: '/admin/dp', icon: Users },
