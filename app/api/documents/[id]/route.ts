@@ -19,6 +19,16 @@ export async function GET(
         return new NextResponse('Documento não encontrado', { status: 404 });
     }
 
+    // Security Check: Ensure client can only access their own documents
+    const userRole = (session.user as any).role;
+    const userClientId = (session.user as any).clientId;
+
+    if (userRole === 'CLIENT') {
+        if (!userClientId || document.clientId !== userClientId) {
+            return new NextResponse('Acesso negado a este documento.', { status: 403 });
+        }
+    }
+
     // Return the binary content as a PDF
     return new NextResponse(document.content, {
         headers: {
