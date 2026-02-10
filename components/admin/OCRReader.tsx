@@ -121,20 +121,33 @@ export default function OCRReader({ clients }: { clients: any[] }) {
                 </div>
             </div>
 
-            {(extractedData.cnpj || extractedData.valor) && (
+            {/* Always show action area if a file is selected */}
+            {fileName && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="bg-slate-950/50 border border-slate-800 p-4 rounded-xl">
-                            <div className="text-slate-500 text-xs font-bold uppercase mb-1">CNPJ Identificado</div>
+                            <div className="text-slate-500 text-xs font-bold uppercase mb-1">CNPJ (Detectado)</div>
                             <div className="text-white font-mono flex items-center gap-2">
-                                {extractedData.cnpj || 'Não encontrado'}
+                                <input
+                                    type="text"
+                                    placeholder="Não detectado"
+                                    value={extractedData.cnpj || ''}
+                                    onChange={(e) => setExtractedData({ ...extractedData, cnpj: e.target.value })}
+                                    className="bg-transparent border-none w-full text-white focus:outline-none"
+                                />
                                 {extractedData.cnpj && <CheckCircle2 className="w-4 h-4 text-emerald-500" />}
                             </div>
                         </div>
                         <div className="bg-slate-950/50 border border-slate-800 p-4 rounded-xl">
-                            <div className="text-slate-500 text-xs font-bold uppercase mb-1">Valor da Guia</div>
+                            <div className="text-slate-500 text-xs font-bold uppercase mb-1">Valor (Sugestão)</div>
                             <div className="text-white font-bold flex items-center gap-2">
-                                R$ {extractedData.valor || '---'}
+                                <input
+                                    type="text"
+                                    placeholder="0,00"
+                                    value={extractedData.valor || ''}
+                                    onChange={(e) => setExtractedData({ ...extractedData, valor: e.target.value })}
+                                    className="bg-transparent border-none w-full text-white focus:outline-none"
+                                />
                                 {extractedData.valor && <CheckCircle2 className="w-4 h-4 text-emerald-500" />}
                             </div>
                         </div>
@@ -160,7 +173,7 @@ export default function OCRReader({ clients }: { clients: any[] }) {
                             className="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:text-slate-600 text-white rounded-lg font-bold text-sm transition-all flex items-center gap-2 whitespace-nowrap"
                         >
                             {launching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                            Lançar no Sistema
+                            Lançar Documento
                         </button>
                     </div>
                 </div>
