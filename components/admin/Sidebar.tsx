@@ -14,7 +14,8 @@ import {
     Briefcase,
     DollarSign,
     Landmark,
-    ShieldCheck
+    ShieldCheck,
+    BookOpen
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
@@ -24,6 +25,7 @@ export default function Sidebar() {
 
     const menuItems = [
         { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
+        { name: 'Manual do Sistema', href: '/admin/manual', icon: BookOpen },
         { name: 'Clientes', href: '/admin/clients', icon: Users },
         { name: 'Usuários', href: '/admin/users', icon: UserPlus },
         { name: 'Documentos', href: '/admin/documents', icon: FileText },
