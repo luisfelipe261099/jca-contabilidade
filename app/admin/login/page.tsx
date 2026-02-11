@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Lock, Mail, Loader2 } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -55,9 +56,7 @@ export default function LoginPage() {
 
             <div className="w-full max-w-md relative z-10">
                 <div className="text-center mb-10">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-blue-500/20 mx-auto mb-6">
-                        <span className="font-bold text-white text-3xl">J</span>
-                    </div>
+                    <Logo size="xl" className="justify-center mb-6" showText={false} />
                     <h1 className="text-3xl font-bold text-white mb-2">Acesso Restrito</h1>
                     <p className="text-slate-400">Portal Interno JCA Contabilidade</p>
                 </div>

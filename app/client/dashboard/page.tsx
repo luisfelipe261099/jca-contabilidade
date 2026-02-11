@@ -16,6 +16,7 @@ import {
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Link from 'next/link';
+import Logo from '@/components/Logo';
 
 export default async function ClientDashboard() {
     const session = await auth();
@@ -59,9 +60,7 @@ export default async function ClientDashboard() {
             <header className="border-b border-slate-900 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-bold text-white">
-                            J
-                        </div>
+                        <Logo size="sm" />
                         <div>
                             <h1 className="text-white font-bold leading-none uppercase tracking-tighter">Portal JCA</h1>
                             <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Área do Cliente</span>

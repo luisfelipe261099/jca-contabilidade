@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,14 +10,9 @@ export default function Header() {
     return (
         <nav className="fixed w-full top-0 z-50 backdrop-blur-md border-b border-slate-800/50 bg-[#020617]/80 supports-[backdrop-filter]:bg-[#020617]/50">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-                        <span className="font-bold text-white text-xl">J</span>
-                    </div>
-                    <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                        JCA Contabilidade
-                    </span>
-                </div>
+                <a href="/" className="hover:opacity-90 transition-opacity">
+                    <Logo size="md" />
+                </a>
 
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
