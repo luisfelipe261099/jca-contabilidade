@@ -14,7 +14,7 @@ export default function Footer() {
                         </span>
                     </div>
                     <p className="text-xs text-slate-500 max-w-xs leading-relaxed pl-11">
-                        CRC-SP 12345/O-0 • CNPJ 00.000.000/0001-00<br />
+                        CRC-SP 12345/O-0 • CNPJ 59.224.736/0001-96<br />
                         Av. Paulista, 1000 - São Paulo, SP
                     </p>
                 </div>
