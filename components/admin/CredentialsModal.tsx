@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createCredential, deleteCredential, getClientCredentials } from '@/app/actions/credentials';
 import { X, Loader2, Key, Plus, Trash2, Copy, Check } from 'lucide-react';
 
@@ -16,20 +16,20 @@ export default function CredentialsModal({ client, isOpen, onClose }: Credential
     const [isAdding, setIsAdding] = useState(false);
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
-    useEffect(() => {
-        if (isOpen) {
-            loadCredentials();
-        }
-    }, [isOpen]);
-
-    async function loadCredentials() {
+    const loadCredentials = useCallback(async () => {
         setLoading(true);
         const result = await getClientCredentials(client.id);
         if (result.success) {
             setCredentials(result.credentials || []);
         }
         setLoading(false);
-    }
+    }, [client.id]);
+
+    useEffect(() => {
+        if (isOpen) {
+            loadCredentials();
+        }
+    }, [isOpen, loadCredentials]);
 
     async function handleAdd(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();

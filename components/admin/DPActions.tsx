@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, Loader2, Trash2, Users } from 'lucide-react';
+import { Plus, Loader2, Trash2, Users, FileText, FileDown } from 'lucide-react';
 import { createEmployee, deleteEmployee, updateEmployeeStatus } from '@/app/actions/admin';
+import HoleriteModal from './HoleriteModal';
 
 interface Employee {
     id: string;
@@ -23,6 +24,7 @@ export default function DPActions({ employees, clients }: { employees: Employee[
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
     const [showForm, setShowForm] = useState(false);
+    const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
 
     async function handleCreate(formData: FormData) {
         setLoading(true);
@@ -73,13 +75,21 @@ export default function DPActions({ employees, clients }: { employees: Employee[
                 </div>
             )}
 
-            <button
-                onClick={() => setShowForm(!showForm)}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all mb-6"
-            >
-                <Plus className="w-5 h-5" />
-                {showForm ? 'Fechar' : 'Novo Funcionário'}
-            </button>
+            <div className="flex justify-between items-center mb-6">
+                <button
+                    onClick={() => setShowForm(!showForm)}
+                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all no-print"
+                >
+                    <Plus className="w-5 h-5" />
+                    {showForm ? 'Fechar' : 'Novo Funcionário'}
+                </button>
+                <button
+                    onClick={() => window.print()}
+                    className="flex items-center gap-2 px-4 py-3 border border-slate-700 hover:border-blue-500 hover:text-blue-400 text-slate-300 rounded-xl font-bold transition-all text-sm no-print"
+                >
+                    <FileDown className="w-4 h-4" /> Exportar Listagem em PDF
+                </button>
+            </div>
 
             {showForm && (
                 <form action={handleCreate} className="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 mb-8">
@@ -170,11 +180,20 @@ export default function DPActions({ employees, clients }: { employees: Employee[
                                             <option value="DISMISSED">Desligado</option>
                                         </select>
                                     </td>
-                                    <td className="p-6 text-right">
-                                        <button onClick={() => handleDelete(emp.id)} disabled={loading}
-                                            className="p-2 hover:bg-red-500/10 rounded-lg text-slate-500 hover:text-red-500 transition-all" title="Excluir">
-                                            <Trash2 className="w-4 h-4" />
-                                        </button>
+                                    <td className="p-6 text-right relative no-print">
+                                        <div className="flex items-center justify-end gap-1">
+                                            <button
+                                                onClick={() => setSelectedEmployee(emp)}
+                                                className="p-2 hover:bg-blue-500/10 rounded-lg text-slate-500 hover:text-blue-500 transition-all font-bold flex items-center gap-2 text-[10px] uppercase tracking-wider"
+                                                title="Gerar Holerite / PDF"
+                                            >
+                                                <FileText className="w-4 h-4" /> PDF
+                                            </button>
+                                            <button onClick={() => handleDelete(emp.id)} disabled={loading}
+                                                className="p-2 hover:bg-red-500/10 rounded-lg text-slate-500 hover:text-red-500 transition-all" title="Excluir">
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -185,6 +204,12 @@ export default function DPActions({ employees, clients }: { employees: Employee[
                     </table>
                 </div>
             </div>
+
+            <HoleriteModal
+                employee={selectedEmployee}
+                isOpen={!!selectedEmployee}
+                onClose={() => setSelectedEmployee(null)}
+            />
         </div>
     );
 }

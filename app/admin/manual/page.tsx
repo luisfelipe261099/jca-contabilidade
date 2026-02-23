@@ -179,7 +179,7 @@ export default function ManualPage() {
             <div className="mt-16 bg-gradient-to-r from-blue-900/20 to-indigo-900/20 rounded-3xl p-8 border border-blue-500/20 text-center">
                 <h3 className="text-xl font-bold text-white mb-4">Feito para Acabar com a Desorganização</h3>
                 <p className="text-slate-400 mb-6">
-                    A regra de ouro: **Cadastre tudo no módulo Gestão de Clientes**. Se a empresa estiver vinculada a "DP" e "Fiscal", o sistema criará os bloqueios e as tarefas daquele mês para sua equipe automaticamente.
+                    A regra de ouro: <strong>Cadastre tudo no módulo Gestão de Clientes</strong>. Se a empresa estiver vinculada a &quot;DP&quot; e &quot;Fiscal&quot;, o sistema criará os bloqueios e as tarefas daquele mês para sua equipe automaticamente.
                 </p>
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-lg text-sm text-slate-300">
                     <Settings className="w-4 h-4" />
