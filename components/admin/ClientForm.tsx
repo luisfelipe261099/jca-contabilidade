@@ -25,7 +25,7 @@ export default function ClientForm() {
     }
 
     return (
-        <div className="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 mb-10">
+        <div className="bg-slate-900/40 border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 mb-8 sm:mb-10">
             <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                 <Plus className="w-5 h-5 text-blue-500" />
                 Cadastramento Rápido

@@ -14,7 +14,7 @@ export default function AdminLayout({
     return (
         <div className="min-h-screen bg-[#020617] print:bg-white">
             {!isLoginPage && <Sidebar />}
-            <main className={`min-h-screen ${!isLoginPage ? 'pl-64 print:pl-0' : ''}`}>
+            <main className={`min-h-screen ${!isLoginPage ? 'pt-16 lg:pt-0 lg:pl-64 print:pl-0 print:pt-0' : ''}`}>
                 <div className="w-full">
                     {children}
                 </div>

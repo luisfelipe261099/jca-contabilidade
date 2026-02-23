@@ -17,11 +17,11 @@ export default async function DocumentsPage() {
     ]);
 
     return (
-        <div className="p-8">
-            <div className="flex items-center justify-between mb-10">
+        <div className="p-4 sm:p-6 lg:p-8">
+            <div className="flex items-center justify-between mb-8 sm:mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Central de Documentos</h1>
-                    <p className="text-slate-400">Processamento inteligente de guias, notas e certidões.</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Central de Documentos</h1>
+                    <p className="text-slate-400 text-sm sm:text-base">Processamento inteligente de guias, notas e certidões.</p>
                 </div>
             </div>
 

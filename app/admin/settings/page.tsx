@@ -26,7 +26,7 @@ export default function SettingsPage() {
     }
 
     return (
-        <div className="p-8 max-w-2xl mx-auto">
+        <div className="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-white uppercase tracking-tighter flex items-center gap-3">
                     <ShieldCheck className="w-8 h-8 text-blue-500" />

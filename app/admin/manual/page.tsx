@@ -128,13 +128,13 @@ export default function ManualPage() {
     ];
 
     return (
-        <div className="p-8 max-w-6xl mx-auto text-slate-200">
+        <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto text-slate-200">
             <div className="mb-12 text-center">
                 <div className="inline-flex items-center justify-center p-4 bg-blue-600/20 rounded-full mb-6 relative group">
                     <div className="absolute inset-0 bg-blue-600/20 blur-xl rounded-full group-hover:blur-2xl transition-all"></div>
                     <BookOpen className="w-12 h-12 text-blue-500 relative z-10" />
                 </div>
-                <h1 className="text-4xl font-bold text-white mb-4">Central de Integração - Manual JCA ERP</h1>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">Central de Integração - Manual JCA ERP</h1>
                 <p className="text-lg text-slate-400 max-w-3xl mx-auto">
                     A cartilha para você e seus funcionários não ficarem perdidos. O sistema trabalha por você, desde que o cadastro inicial da empresa seja feito corretamente.
                 </p>
@@ -144,7 +144,7 @@ export default function ManualPage() {
                 {modules.map((item, index) => {
                     const Icon = item.icon;
                     return (
-                        <div key={index} className="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10 group">
+                        <div key={index} className="bg-slate-900/40 border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 hover:border-slate-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10 group">
                             <div className="flex items-start gap-4 mb-6">
                                 <div className={`w-12 h-12 rounded-2xl ${item.bg} flex items-center justify-center shrink-0`}>
                                     <Icon className={`w-6 h-6 ${item.color}`} />
@@ -157,7 +157,7 @@ export default function ManualPage() {
                                 </div>
                             </div>
 
-                            <div className="pl-16">
+                            <div className="pl-0 sm:pl-16">
                                 <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <HelpCircle className="w-3 h-3" />
                                     Como Usar

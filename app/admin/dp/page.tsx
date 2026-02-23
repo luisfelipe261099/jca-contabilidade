@@ -23,16 +23,16 @@ export default async function DPPage() {
     const totalPayroll = employees.filter((e: any) => e.status === 'ACTIVE').reduce((acc: number, e: any) => acc + e.salary, 0);
 
     return (
-        <div className="p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Departamento Pessoal</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Departamento Pessoal</h1>
                     <p className="text-slate-400">Gestão de funcionários, folha de pagamento e admissões.</p>
                 </div>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8 sm:mb-10">
                 <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
                     <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">Total Funcionários</div>
                     <div className="text-3xl font-bold text-white">{totalEmployees}</div>

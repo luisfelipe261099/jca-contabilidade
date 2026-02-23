@@ -29,10 +29,10 @@ export default async function BIPage() {
     ];
 
     return (
-        <div className="p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Estratégico & BI</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Estratégico & BI</h1>
                     <p className="text-slate-400">Visão analítica e indicadores de performance da JCA.</p>
                 </div>
                 <div className="flex gap-4">
@@ -44,7 +44,7 @@ export default async function BIPage() {
             </div>
 
             {/* Main Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8 sm:mb-10">
                 {summary.map((stat, i) => (
                     <div key={i} className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl relative overflow-hidden group">
                         <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-500/5 rounded-full group-hover:bg-blue-500/10 transition-colors" />

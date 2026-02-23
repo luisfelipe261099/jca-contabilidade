@@ -21,15 +21,15 @@ export default async function ProtocolosPage() {
     const confirmed = protocols.filter((p: any) => p.receivedAt).length;
 
     return (
-        <div className="p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Protocolos Digitais</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Protocolos Digitais</h1>
                     <p className="text-slate-400">Rastreabilidade e prova de entrega de documentos aos clientes.</p>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-10">
                 <div className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl">
                     <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">Enviados</div>
                     <div className="text-3xl font-bold text-white">{sent}</div>

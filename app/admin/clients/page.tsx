@@ -32,13 +32,13 @@ export default async function ClientsPage() {
     });
 
     return (
-        <div className="p-8">
-            <div className="flex items-center justify-between mb-10">
+        <div className="p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Gestão de Clientes</h1>
-                    <p className="text-slate-400">Cadastre e gerencie a carteira da JCA.</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Gestão de Clientes</h1>
+                    <p className="text-slate-400 text-sm sm:text-base">Cadastre e gerencie a carteira da JCA.</p>
                 </div>
-                <button className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all">
+                <button className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all w-full sm:w-auto">
                     <Plus className="w-5 h-5" />
                     Novo Cliente
                 </button>
@@ -52,45 +52,45 @@ export default async function ClientsPage() {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-950/50 border-b border-slate-800">
-                                <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Empresa</th>
-                                <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">CNPJ</th>
-                                <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Regime</th>
-                                <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Serviços Contratados</th>
-                                <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Status</th>
-                                <th className="px-8 py-5 text-right"></th>
+                                <th className="px-4 sm:px-8 py-4 sm:py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Empresa</th>
+                                <th className="px-4 sm:px-8 py-4 sm:py-5 text-slate-500 text-xs font-bold uppercase tracking-wider hidden sm:table-cell">CNPJ</th>
+                                <th className="px-4 sm:px-8 py-4 sm:py-5 text-slate-500 text-xs font-bold uppercase tracking-wider hidden md:table-cell">Regime</th>
+                                <th className="px-4 sm:px-8 py-4 sm:py-5 text-slate-500 text-xs font-bold uppercase tracking-wider hidden lg:table-cell">Serviços Contratados</th>
+                                <th className="px-4 sm:px-8 py-4 sm:py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Status</th>
+                                <th className="px-2 sm:px-8 py-4 sm:py-5 text-right"></th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-800/50">
                             {clients.map((client: any) => (
                                 <tr key={client.id} className="hover:bg-slate-800/20 transition-colors">
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 sm:px-8 py-4 sm:py-6">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center">
-                                                <Building2 className="w-5 h-5 text-slate-400" />
+                                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-slate-800 rounded-lg flex items-center justify-center shrink-0">
+                                                <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
                                             </div>
-                                            <span className="font-bold text-white">{client.name}</span>
+                                            <span className="font-bold text-white text-sm sm:text-base">{client.name}</span>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6 text-slate-400 font-mono text-sm">{client.cnpj}</td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 sm:px-8 py-4 sm:py-6 text-slate-400 font-mono text-sm hidden sm:table-cell">{client.cnpj}</td>
+                                    <td className="px-4 sm:px-8 py-4 sm:py-6 hidden md:table-cell">
                                         <span className="px-3 py-1 bg-slate-800 text-slate-300 rounded-full text-[10px] font-bold border border-slate-700 uppercase">
                                             {client.regime.replace('_', ' ')}
                                         </span>
                                     </td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 sm:px-8 py-4 sm:py-6 hidden lg:table-cell">
                                         <div className="flex flex-wrap gap-1 min-w-[150px] max-w-[200px]">
                                             {client.services ? client.services.split(',').map((s: string) => (
                                                 <span key={s} className="px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded text-[9px] font-bold uppercase border border-blue-500/20">{s}</span>
                                             )) : <span className="text-slate-500 text-[10px] italic">Sem serviços</span>}
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 sm:px-8 py-4 sm:py-6">
                                         <div className="flex items-center gap-2">
                                             <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
                                             <span className="text-xs text-slate-300 font-medium">Ativo</span>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6 text-right">
+                                    <td className="px-2 sm:px-8 py-4 sm:py-6 text-right">
                                         <div className="flex items-center justify-end gap-1">
                                             <CredentialsTrigger client={client} />
                                             <EditClientTrigger client={client} />

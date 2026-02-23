@@ -69,8 +69,8 @@ export default function CredentialsModal({ client, isOpen, onClose }: Credential
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
                 <div className="p-6 border-b border-slate-800 flex items-center justify-between bg-slate-900/50">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center">
@@ -109,7 +109,7 @@ export default function CredentialsModal({ client, isOpen, onClose }: Credential
                                     required
                                     className="w-full bg-slate-900 border border-slate-800 rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-amber-500 transition-all font-medium"
                                 />
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <input
                                         name="username"
                                         placeholder="Login / CPF / CNPJ"
@@ -183,7 +183,7 @@ export default function CredentialsModal({ client, isOpen, onClose }: Credential
                                     <button
                                         onClick={() => handleDelete(cred.id)}
                                         disabled={loading}
-                                        className="p-2 text-slate-600 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+                                        className="p-2 text-slate-600 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all sm:opacity-0 sm:group-hover:opacity-100"
                                         title="Excluir"
                                     >
                                         <Trash2 className="w-4 h-4" />

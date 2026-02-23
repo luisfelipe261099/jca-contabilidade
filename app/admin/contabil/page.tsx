@@ -5,14 +5,14 @@ import { PieChart, TrendingUp, Scale, Building2 } from 'lucide-react';
 
 export default function ContabilPage() {
     return (
-        <div className="p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-white mb-2">Contábil</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Contábil</h1>
                 <p className="text-slate-400">Balancetes, DRE e controle patrimonial.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
+                <div className="bg-slate-900/40 border border-slate-800 p-4 sm:p-8 rounded-2xl sm:rounded-3xl">
                     <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                         <Scale className="w-5 h-5 text-blue-500" />
                         Saúde Financeira Geral
@@ -33,7 +33,7 @@ export default function ContabilPage() {
                     </div>
                 </div>
 
-                <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
+                <div className="bg-slate-900/40 border border-slate-800 p-4 sm:p-8 rounded-2xl sm:rounded-3xl">
                     <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                         <Building2 className="w-5 h-5 text-purple-500" />
                         Regimes Tributários (Clientes)

@@ -48,8 +48,8 @@ export default function EditClientModal({ client, isOpen, onClose }: EditClientM
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl animate-in zoom-in-95 duration-300">
                 <div className="p-6 border-b border-slate-800 flex items-center justify-between bg-slate-900/50">
                     <h2 className="text-xl font-bold text-white uppercase tracking-tight">Editar Cliente</h2>
                     <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-xl transition-colors">
