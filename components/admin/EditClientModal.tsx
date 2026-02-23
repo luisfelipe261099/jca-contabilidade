@@ -84,16 +84,17 @@ export default function EditClientModal({ client, isOpen, onClose }: EditClientM
                                 defaultValue={client.regime}
                                 className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500 transition-all"
                             >
-                                <option value="SIMPLES">Simples Nacional</option>
-                                <option value="LP">Lucro Presumido</option>
-                                <option value="LR">Lucro Real</option>
+                                <option value="SIMPLES_NACIONAL">Simples Nacional</option>
+                                <option value="LUCRO_PRESUMIDO">Lucro Presumido</option>
+                                <option value="LUCRO_REAL">Lucro Real</option>
                                 <option value="MEI">MEI</option>
+                                <option value="ESOCIAL_DOMESTICO">eSocial Doméstico</option>
                             </select>
                         </div>
                         <div>
                             <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Serviços Contratados</label>
                             <div className="flex flex-wrap gap-2">
-                                {['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO', 'IMPOSTO DE RENDA', 'BPO FINANCEIRO', 'ALVARÁ', 'CERTIFICADO DIGITAL'].map((s) => (
+                                {['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO', 'IMPOSTO DE RENDA', 'BPO FINANCEIRO', 'ALVARÁ', 'CERTIFICADO DIGITAL', 'ESOCIAL DOMÉSTICO'].map((s) => (
                                     <label key={s} className="flex items-center gap-2 text-white bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg cursor-pointer hover:border-blue-500 transition-all">
                                         <input type="checkbox" name="services" value={s} defaultChecked={client.services?.includes(s)} className="w-3.5 h-3.5 accent-blue-600 cursor-pointer" />
                                         <span className="text-sm font-bold">{s}</span>

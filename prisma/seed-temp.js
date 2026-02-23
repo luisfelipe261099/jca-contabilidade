@@ -1,13 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
-const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: "mysql://2U6VEyr2feNV3hC.root:NLV0NiUsKFeioPoP@gateway01.us-east-1.prod.aws.tidbcloud.com:4000/test?sslaccept=strict"
-        }
-    }
-});
+const prisma = new PrismaClient();
 
 async function main() {
     const hashedPassword = await bcrypt.hash('admin123', 10);

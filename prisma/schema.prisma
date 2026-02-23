@@ -175,6 +175,7 @@ enum TaxRegime {
   LUCRO_PRESUMIDO
   LUCRO_REAL
   MEI
+  ESOCIAL_DOMESTICO
 }
 
 enum Department {
