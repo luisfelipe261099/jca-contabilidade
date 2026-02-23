@@ -32,7 +32,7 @@ export async function createClient(formData: FormData) {
         if (servicesArr.includes('IMPOSTO DE RENDA')) tasks.push({ title: 'Planejamento / Declaração IR', category: 'Imposto de Renda' });
         if (servicesArr.includes('ALVARÁ')) tasks.push({ title: 'Acompanhamento de Alvará', category: 'Societário' });
         if (servicesArr.includes('CERTIFICADO DIGITAL')) tasks.push({ title: 'Renovação de Certificado Digital', category: 'TI / Doc' });
-        if (servicesArr.includes('ESOCIAL DOMÉSTICO')) tasks.push({ title: 'Fechamento eSocial Doméstico', category: 'DP' });
+        if (servicesArr.includes('DP - ESOCIAL DOMÉSTICO')) tasks.push({ title: 'Fechamento eSocial Doméstico', category: 'DP' });
 
         if (tasks.length > 0) {
             await prisma.task.createMany({

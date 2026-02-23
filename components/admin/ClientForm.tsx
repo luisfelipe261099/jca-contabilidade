@@ -58,7 +58,7 @@ export default function ClientForm() {
                 </select>
                 <div className="md:col-span-4 flex flex-wrap gap-4 mt-2 mb-2">
                     <span className="w-full text-xs font-bold text-slate-500 uppercase">Serviços Contratados:</span>
-                    {['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO', 'IMPOSTO DE RENDA', 'BPO FINANCEIRO', 'ALVARÁ', 'CERTIFICADO DIGITAL', 'ESOCIAL DOMÉSTICO'].map((s) => (
+                    {['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO', 'IMPOSTO DE RENDA', 'BPO FINANCEIRO', 'ALVARÁ', 'CERTIFICADO DIGITAL', 'DP - ESOCIAL DOMÉSTICO'].map((s) => (
                         <label key={s} className="flex items-center gap-2 text-white bg-slate-950/50 border border-slate-800 px-4 py-2 rounded-xl cursor-pointer hover:border-blue-500 transition-all select-none">
                             <input type="checkbox" name="services" value={s} defaultChecked={['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO'].includes(s)} className="w-4 h-4 accent-blue-600 cursor-pointer" />
                             <span className="text-sm font-bold uppercase tracking-wide">{s}</span>

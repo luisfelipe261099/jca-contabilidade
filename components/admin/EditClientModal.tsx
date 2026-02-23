@@ -94,7 +94,7 @@ export default function EditClientModal({ client, isOpen, onClose }: EditClientM
                         <div>
                             <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Serviços Contratados</label>
                             <div className="flex flex-wrap gap-2">
-                                {['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO', 'IMPOSTO DE RENDA', 'BPO FINANCEIRO', 'ALVARÁ', 'CERTIFICADO DIGITAL', 'ESOCIAL DOMÉSTICO'].map((s) => (
+                                {['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO', 'IMPOSTO DE RENDA', 'BPO FINANCEIRO', 'ALVARÁ', 'CERTIFICADO DIGITAL', 'DP - ESOCIAL DOMÉSTICO'].map((s) => (
                                     <label key={s} className="flex items-center gap-2 text-white bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg cursor-pointer hover:border-blue-500 transition-all">
                                         <input type="checkbox" name="services" value={s} defaultChecked={client.services?.includes(s)} className="w-3.5 h-3.5 accent-blue-600 cursor-pointer" />
                                         <span className="text-sm font-bold">{s}</span>
