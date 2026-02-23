@@ -12,6 +12,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             if (user) {
                 token.role = user.role;
                 token.clientId = user.clientId;
+                token.department = user.department;
             }
             return token;
         },
@@ -19,6 +20,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             if (token) {
                 session.user.role = token.role;
                 session.user.clientId = token.clientId;
+                session.user.department = token.department;
             }
             return session;
         },

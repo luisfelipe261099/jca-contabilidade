@@ -5,15 +5,16 @@ import { ShieldCheck } from 'lucide-react';
 import ProtocoloActions from '@/components/admin/ProtocoloActions';
 
 export default async function ProtocolosPage() {
-    const protocols = await prisma.protocol.findMany({
-        include: { client: true },
-        orderBy: { createdAt: 'desc' }
-    });
-
-    const clients = await prisma.client.findMany({
-        select: { id: true, name: true },
-        orderBy: { name: 'asc' }
-    });
+    const [protocols, clients] = await Promise.all([
+        prisma.protocol.findMany({
+            include: { client: true },
+            orderBy: { createdAt: 'desc' }
+        }),
+        prisma.client.findMany({
+            select: { id: true, name: true },
+            orderBy: { name: 'asc' }
+        })
+    ]);
 
     const sent = protocols.length;
     const pending = protocols.filter((p: any) => !p.receivedAt).length;

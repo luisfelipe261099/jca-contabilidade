@@ -8,6 +8,8 @@ export async function createClient(formData: FormData) {
     const name = formData.get('name') as string;
     const cnpj = formData.get('cnpj') as string;
     const regime = formData.get('regime') as TaxRegime;
+    const servicesArr = formData.getAll('services') as string[];
+    const services = servicesArr.join(',');
 
     try {
         const client = await prisma.client.create({
@@ -15,24 +17,31 @@ export async function createClient(formData: FormData) {
                 name,
                 cnpj,
                 regime,
+                services,
                 status: 'ATENDIMENTO',
             },
         });
 
-        // Auto-generate initial tasks based on regime
-        const tasks = [
-            { title: 'Apuração Fiscal Mensal', category: 'Fiscal' },
-            { title: 'Fechamento de Folha (RH)', category: 'RH' },
-            { title: 'Conciliação Contábil', category: 'Contábil' },
-        ];
+        // Auto-generate initial tasks based on contracted services
+        const tasks = [];
+        if (servicesArr.includes('FISCAL')) tasks.push({ title: 'Apuração Fiscal Mensal', category: 'Fiscal' });
+        if (servicesArr.includes('CONTABIL')) tasks.push({ title: 'Conciliação Contábil', category: 'Contábil' });
+        if (servicesArr.includes('DP / RH')) tasks.push({ title: 'Fechamento de Folha (RH)', category: 'DP' });
+        if (servicesArr.includes('SOCIETARIO')) tasks.push({ title: 'Revisão de CNDs e Alvarás', category: 'Societário' });
+        if (servicesArr.includes('FINANCEIRO') || servicesArr.includes('BPO FINANCEIRO')) tasks.push({ title: 'Fechamento Financeiro / BPO', category: 'Financeiro' });
+        if (servicesArr.includes('IMPOSTO DE RENDA')) tasks.push({ title: 'Planejamento / Declaração IR', category: 'Imposto de Renda' });
+        if (servicesArr.includes('ALVARÁ')) tasks.push({ title: 'Acompanhamento de Alvará', category: 'Societário' });
+        if (servicesArr.includes('CERTIFICADO DIGITAL')) tasks.push({ title: 'Renovação de Certificado Digital', category: 'TI / Doc' });
 
-        await prisma.task.createMany({
-            data: tasks.map(t => ({
-                ...t,
-                clientId: client.id,
-                dueDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 10), // Next month 10th
-            }))
-        });
+        if (tasks.length > 0) {
+            await prisma.task.createMany({
+                data: tasks.map(t => ({
+                    ...t,
+                    clientId: client.id,
+                    dueDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 10), // Next month 10th
+                }))
+            });
+        }
 
         revalidatePath('/admin/dashboard');
         revalidatePath('/admin/clients');
@@ -95,11 +104,13 @@ export async function updateClient(id: string, formData: FormData) {
     const name = formData.get('name') as string;
     const cnpj = formData.get('cnpj') as string;
     const regime = formData.get('regime') as string;
+    const servicesArr = formData.getAll('services') as string[];
+    const services = servicesArr.join(',');
 
     try {
         await prisma.client.update({
             where: { id },
-            data: { name, cnpj, regime },
+            data: { name, cnpj, regime: regime as TaxRegime, services },
         });
 
         revalidatePath('/admin/clients');

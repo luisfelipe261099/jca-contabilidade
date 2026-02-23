@@ -4,15 +4,18 @@ import prisma from '@/lib/prisma';
 import SocietarioActions from '@/components/admin/SocietarioActions';
 
 export default async function SocietarioPage() {
-    const processes = await prisma.legalProcess.findMany({
-        include: { client: true },
-        orderBy: { createdAt: 'desc' }
-    });
-
-    const clients = await prisma.client.findMany({
-        select: { id: true, name: true },
-        orderBy: { name: 'asc' }
-    });
+    const [processes, clients] = await Promise.all([
+        prisma.legalProcess.findMany({
+            where: { client: { services: { contains: 'SOCIETARIO' } } },
+            include: { client: true },
+            orderBy: { createdAt: 'desc' }
+        }),
+        prisma.client.findMany({
+            where: { services: { contains: 'SOCIETARIO' } },
+            select: { id: true, name: true },
+            orderBy: { name: 'asc' }
+        })
+    ]);
 
     const open = processes.filter((p: any) => p.status === 'OPEN').length;
     const inProgress = processes.filter((p: any) => p.status === 'IN_PROGRESS').length;

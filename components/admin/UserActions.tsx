@@ -9,6 +9,7 @@ interface User {
     email: string;
     name: string | null;
     role: string;
+    department?: string;
     clientId: string | null;
     createdAt: Date;
 }
@@ -158,8 +159,25 @@ export default function UserActions({ users, clients }: { users: User[]; clients
                                     <option value="CLIENT">Cliente</option>
                                 </select>
                             </div>
+                            {selectedRole === 'EMPLOYEE' && (
+                                <div>
+                                    <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Departamento</label>
+                                    <select
+                                        name="department"
+                                        className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500 transition-all appearance-none"
+                                        required
+                                    >
+                                        <option value="GERAL">Geral</option>
+                                        <option value="FISCAL">Fiscal</option>
+                                        <option value="CONTABIL">Contábil</option>
+                                        <option value="DP">Departamento Pessoal (RH)</option>
+                                        <option value="SOCIETARIO">Societário</option>
+                                        <option value="FINANCEIRO">Financeiro</option>
+                                    </select>
+                                </div>
+                            )}
                             {selectedRole === 'CLIENT' && (
-                                <div className="md:col-span-2">
+                                <div className={selectedRole === 'CLIENT' ? "md:col-span-2" : ""}>
                                     <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Vincular à Empresa</label>
                                     <select
                                         name="clientId"
@@ -210,9 +228,16 @@ export default function UserActions({ users, clients }: { users: User[]; clients
                                     <td className="p-6 font-bold text-white">{user.name || '—'}</td>
                                     <td className="p-6 text-slate-400 text-sm font-mono">{user.email}</td>
                                     <td className="p-6">
-                                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase border ${getRoleBadge(user.role)}`}>
-                                            {user.role === 'ADMIN' ? 'Admin' : user.role === 'EMPLOYEE' ? 'Funcionário' : 'Cliente'}
-                                        </span>
+                                        <div className="flex flex-col gap-1 items-start">
+                                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase border ${getRoleBadge(user.role)}`}>
+                                                {user.role === 'ADMIN' ? 'Admin' : user.role === 'EMPLOYEE' ? 'Funcionário' : 'Cliente'}
+                                            </span>
+                                            {user.role === 'EMPLOYEE' && user.department && user.department !== 'GERAL' && (
+                                                <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-slate-800 text-slate-400">
+                                                    {user.department}
+                                                </span>
+                                            )}
+                                        </div>
                                     </td>
                                     <td className="p-6 text-right">
                                         <div className="flex items-center justify-end gap-2">

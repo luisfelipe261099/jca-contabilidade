@@ -4,15 +4,18 @@ import prisma from '@/lib/prisma';
 import FiscalActions from '@/components/admin/FiscalActions';
 
 export default async function FiscalPage() {
-    const taxes = await prisma.tax.findMany({
-        include: { client: true },
-        orderBy: { dueDate: 'asc' }
-    });
-
-    const clients = await prisma.client.findMany({
-        select: { id: true, name: true },
-        orderBy: { name: 'asc' }
-    });
+    const [taxes, clients] = await Promise.all([
+        prisma.tax.findMany({
+            where: { client: { services: { contains: 'FISCAL' } } },
+            include: { client: true },
+            orderBy: { dueDate: 'asc' }
+        }),
+        prisma.client.findMany({
+            where: { services: { contains: 'FISCAL' } },
+            select: { id: true, name: true },
+            orderBy: { name: 'asc' }
+        })
+    ]);
 
     const totalGuias = taxes.length;
     const totalAmount = taxes.reduce((acc: number, t: any) => acc + t.amount, 0);

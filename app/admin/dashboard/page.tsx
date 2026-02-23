@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import prisma from '@/lib/prisma';
 import TaskToggle from '@/components/admin/TaskToggle';
 import EditClientTrigger from '@/components/admin/EditClientTrigger';
+import { auth } from '@/auth';
 import {
     Users,
     FileText,
@@ -18,19 +19,46 @@ import {
 } from 'lucide-react';
 
 export default async function DashboardPage() {
-    const clientCount = await prisma.client.count();
-    const taskCount = await prisma.task.count({ where: { completed: false } });
-    const completedTaskCount = await prisma.task.count({ where: { completed: true } });
-    const userCount = await prisma.user.count();
+    const session = await auth();
+    const role = (session?.user as any)?.role || 'EMPLOYEE';
+    const email = session?.user?.email;
 
-    const clients = await prisma.client.findMany({
-        take: 5,
-        orderBy: { createdAt: 'desc' },
-        include: { tasks: true }
-    });
+    const loggedUser = email ? await prisma.user.findUnique({ where: { email } }) : null;
+    const userId = loggedUser?.id;
+    const department = loggedUser?.department || 'GERAL';
+
+    let clientWhere: any = {};
+    if (role === 'CLIENT' && loggedUser?.clientId) {
+        clientWhere.id = loggedUser.clientId;
+    } else if (role !== 'ADMIN' && department !== 'GERAL') {
+        clientWhere.OR = [
+            { responsibleId: userId },
+            { services: { contains: department } }
+        ];
+    }
+
+    // clientCount fetch was moved to Promise.all below to execute in parallel
+
+    const taskWherePending = (role === 'ADMIN' || department === 'GERAL') ? { completed: false } : { completed: false, client: clientWhere };
+    const taskWhereCompleted = (role === 'ADMIN' || department === 'GERAL') ? { completed: true } : { completed: true, client: clientWhere };
+
+    // Melhoria para Vercel FREE e TiDB: Executar todas as queries SQL em paralelo
+    // Isso evita o erro de "Timeout" de 10 segundos do Vercel e acorda o banco de dados TiDB muito mais rápido
+    const [clientCount, taskCount, completedTaskCount, userCount, clients] = await Promise.all([
+        prisma.client.count({ where: clientWhere }),
+        prisma.task.count({ where: taskWherePending }),
+        prisma.task.count({ where: taskWhereCompleted }),
+        prisma.user.count(),
+        prisma.client.findMany({
+            take: 5,
+            where: clientWhere,
+            orderBy: { createdAt: 'desc' },
+            include: { tasks: true }
+        })
+    ]);
 
     const stats = [
-        { label: 'Total Clientes', value: clientCount.toString(), icon: <Building2 className="w-5 h-5" />, color: 'bg-blue-500' },
+        { label: role === 'ADMIN' ? 'Total Clientes' : 'Meus Clientes', value: clientCount.toString(), icon: <Building2 className="w-5 h-5" />, color: 'bg-blue-500' },
         { label: 'Tarefas Pendentes', value: taskCount.toString(), icon: <AlertCircle className="w-5 h-5" />, color: 'bg-amber-500' },
         { label: 'Tarefas Concluídas', value: completedTaskCount.toString(), icon: <CheckCircle2 className="w-5 h-5" />, color: 'bg-emerald-500' },
         { label: 'Equipe JCA', value: userCount.toString(), icon: <Users className="w-5 h-5" />, color: 'bg-indigo-500' },

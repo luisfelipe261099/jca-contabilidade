@@ -5,21 +5,23 @@ import { Users, UserPlus, Shield, Trash2, Key } from 'lucide-react';
 import UserActions from '@/components/admin/UserActions';
 
 export default async function UsersPage() {
-    const users = await prisma.user.findMany({
-        orderBy: { createdAt: 'desc' },
-        select: {
-            id: true,
-            email: true,
-            name: true,
-            role: true,
-            clientId: true,
-            createdAt: true,
-        }
-    });
-
-    const clients = await prisma.client.findMany({
-        select: { id: true, name: true }
-    });
+    const [users, clients] = await Promise.all([
+        prisma.user.findMany({
+            orderBy: { createdAt: 'desc' },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                role: true,
+                department: true,
+                clientId: true,
+                createdAt: true,
+            }
+        }),
+        prisma.client.findMany({
+            select: { id: true, name: true }
+        })
+    ]);
 
     return (
         <div className="p-8">

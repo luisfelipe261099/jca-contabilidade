@@ -5,15 +5,16 @@ import FinanceiroActions from '@/components/admin/FinanceiroActions';
 import { Wallet, ArrowUpRight, ArrowDownRight, AlertTriangle } from 'lucide-react';
 
 export default async function FinanceiroPage() {
-    const records = await prisma.financialRecord.findMany({
-        include: { client: true },
-        orderBy: { dueDate: 'asc' }
-    });
-
-    const clients = await prisma.client.findMany({
-        select: { id: true, name: true },
-        orderBy: { name: 'asc' }
-    });
+    const [records, clients] = await Promise.all([
+        prisma.financialRecord.findMany({
+            include: { client: true },
+            orderBy: { dueDate: 'asc' }
+        }),
+        prisma.client.findMany({
+            select: { id: true, name: true },
+            orderBy: { name: 'asc' }
+        })
+    ]);
 
     const incomeRecords = records.filter((r: any) => r.type === 'INCOME');
     const expenseRecords = records.filter((r: any) => r.type === 'EXPENSE');

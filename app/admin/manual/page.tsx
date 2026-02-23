@@ -15,139 +15,114 @@ import {
     BookOpen,
     HelpCircle,
     CheckCircle2,
-    ArrowRight
+    MessageSquare,
+    Key
 } from 'lucide-react';
 
 export default function ManualPage() {
     const modules = [
         {
-            title: "Dashboard (Visão Geral)",
+            title: "Dashboard (Torre de Controle)",
             icon: LayoutDashboard,
             color: "text-blue-500",
             bg: "bg-blue-500/10",
-            description: "O painel de controle da sua nave. Aqui você vê tudo o que está acontecendo agora.",
+            description: "O painel de controle da sua nave. Focado em mostrar apenas o que importa para cada departamento.",
             steps: [
-                "Veja o total de clientes ativos.",
-                "Acompanhe as tarefas pendentes do dia.",
-                "Visualize os últimos documentos enviados.",
-                "Monitore a saúde financeira do escritório."
+                "Veja o total de clientes ativos (filtrado pelo seu departamento).",
+                "Acompanhe as tarefas com base de prioridade.",
+                "Abra abas rápidas clicando no ícone do 'Lápis' para editar configurações do cliente.",
+                "Pesquise pela barra superior para encontrar o cadastro de qualquer empresa."
             ]
         },
         {
-            title: "Clientes (Empresas)",
+            title: "Gestão de Clientes (O Início de Tudo)",
             icon: Users,
             color: "text-emerald-500",
             bg: "bg-emerald-500/10",
-            description: "Onde ficam as empresas que você atende. É o coração do sistema.",
+            description: "Onde ficam as empresas que você atende. É o coração do sistema. Tudo começa aqui.",
             steps: [
-                "Clique em 'Novo Cliente' para cadastrar uma empresa.",
-                "Preencha CNPJ, Nome e Regime Tributário.",
-                "O sistema cria automaticamente as obrigações mensais baseadas no regime.",
-                "Use a busca para encontrar qualquer empresa rapidamente."
+                "1. Clique em 'Novo Cliente' ou use o Cadastro Rápido na tela principal.",
+                "2. Preencha Nome, CNPJ e Regime Tributário.",
+                "3. IMPORTANTÍSSIMO: Marque todos os serviços que a empresa contratou (Ex: FISCAL, DP / RH, BPO FINANCEIRO).",
+                "4. A mágica acontece: O sistema gera as tarefas mensais automaticamente (Ex: Se marcou DP, cria 'Fechamento de Folha').",
+                "5. E os funcionários (DP) só verão os clientes que tiverem 'DP' marcado."
             ]
         },
         {
-            title: "Usuários (Acessos)",
-            icon: UserPlus,
-            color: "text-purple-500",
-            bg: "bg-purple-500/10",
-            description: "Aqui você cria as chaves de entrada para o sistema, tanto para sua equipe quanto para seus clientes.",
+            title: "Cofre de Senhas (Credenciais)",
+            icon: Key,
+            color: "text-amber-500",
+            bg: "bg-amber-500/10",
+            description: "Esqueça perder senhas do Gov.br ou e-CAC em planilhas.",
             steps: [
-                "Crie usuários do tipo 'ADMIN' para sua equipe interna.",
-                "Crie usuários do tipo 'CLIENTE' para os donos das empresas.",
-                "Importante: Ao criar um usuário Cliente, vincule-o à Empresa correspondente.",
-                "Você pode resetar senhas aqui se alguém esquecer."
+                "Acesse a Gestão de Clientes e encontre a empresa desejada.",
+                "Clique no ícone da 'Chave Dourada' ao lado do botão de editar.",
+                "Adicione novas senhas de sistemas oficiais, com login, senha secreta e anotações.",
+                "As senhas ficam ocultas. Use o botão de 'Dois Quadrados' (Copiar) para copiar a senha em 1 segundo e colar na Receita."
             ]
         },
         {
-            title: "Central de Documentos (OCR)",
+            title: "Atendimento (Helpdesk / Chamados)",
+            icon: MessageSquare,
+            color: "text-indigo-500",
+            bg: "bg-indigo-500/10",
+            description: "Centralize todas as solicitações e não deixe nenhum cliente se sentir esquecido.",
+            steps: [
+                "Acesse 'Atendimento' no menu.",
+                "Crie 'Novo Chamado' (Ticket) selecionando a empresa e a Classificação (Normal, Alta Prioridade, etc).",
+                "Identifique rapidamente na fila quantos chamados estão abertos.",
+                "Inicie um chamado alterando o status para 'Em Tratativa' e, finalizado, marque 'Concluir'."
+            ]
+        },
+        {
+            title: "Central de Documentos (Leitura OCR)",
             icon: FileText,
             color: "text-pink-500",
             bg: "bg-pink-500/10",
-            description: "Seu assistente robô. Ele lê guias e notas fiscais para você não precisar digitar.",
+            description: "Seu assistente robô que lê guias, PDFS e notas.",
             steps: [
-                "Arraste um PDF ou imagem para a área de upload.",
-                "O robô vai tentar ler o CNPJ e o Valor.",
-                "Se ele não conseguir ler tudo, você pode completar manualmente.",
-                "Selecione o Cliente e clique em 'Lançar Documento'.",
-                "Pronto! O documento já aparece na hora para o cliente baixar."
+                "Arraste um PDF ou imagem da guia para a área de upload.",
+                "O robô inteligente reconhecerá os dados daquele documento automaticamente.",
+                "Atribua à empresa certa.",
+                "Esse módulo interage com os Protocolos. O cliente recebe e você será notificado assim que ele baixar."
             ]
         },
         {
-            title: "Fiscal (Impostos)",
+            title: "Gestão de Permissionamento (Usuários)",
+            icon: UserPlus,
+            color: "text-purple-500",
+            bg: "bg-purple-500/10",
+            description: "Crie senhas para seus funcionários e os limites de onde podem chegar.",
+            steps: [
+                "Crie o login interno definindo o Cargo (EMPLOYEE/ADMIN).",
+                "IMPORTANTE: Defina qual o Setor do funcionário (DP, FISCAL, SOCIETÁRIO). Isso bloqueia ele de ver empresas dos outros.",
+                "O 'Admin' consegue entrar no Cofre de Senhas e ver dados Estratégicos.",
+                "Se precisar criar login para o próprio Cliente baixar as coisas, vincule-o no momento da criação da senha."
+            ]
+        },
+        {
+            title: "Folha / DP e Departamentos",
             icon: Briefcase,
-            color: "text-orange-500",
-            bg: "bg-orange-500/10",
-            description: "Controle de DAS, ICMS, ISS e todas as guias de pagamento.",
-            steps: [
-                "Cadastre uma nova guia clicando em 'Nova Guia'.",
-                "Defina o valor e o vencimento.",
-                "O cliente recebe um aviso de 'Pendente'.",
-                "Quando o cliente pagar, você ou ele podem mudar o status para 'Pago'."
-            ]
-        },
-        {
-            title: "Folha / DP (Funcionários)",
-            icon: Users,
             color: "text-cyan-500",
             bg: "bg-cyan-500/10",
-            description: "Gestão completa dos funcionários das empresas dos seus clientes.",
+            description: "Os atalhos diretos para as obrigações específicas de cada base contábil.",
             steps: [
-                "Cadastre os funcionários de cada cliente.",
-                "Controle salários, cargos e datas de admissão.",
-                "Gerencie status como 'Férias', 'Afastado' ou 'Ativo'.",
-                "Use essa base para gerar a folha de pagamento mensal."
+                "Fiscal controla as Guias, impostos e alvarás fiscais.",
+                "DP/RH Cadastra funcionários das empresas pra processar folha e rescisões.",
+                "Societário cuida do passo-a-passo e SLA (prazos) para abertura de um CNPJ.",
+                "O foco aqui é o isolamento de informações para segurança."
             ]
         },
         {
-            title: "Societário (Legal)",
-            icon: Landmark,
-            color: "text-amber-500",
-            bg: "bg-amber-500/10",
-            description: "Abertura, alteração e encerramento de empresas.",
-            steps: [
-                "Acompanhe processos de abertura de CNPJ.",
-                "Atualize em qual etapa o processo está (Ex: 'Na Junta Comercial').",
-                "O cliente consegue acompanhar o progresso sem te ligar toda hora.",
-                "Mantenha o histórico de alterações contratuais."
-            ]
-        },
-        {
-            title: "Financeiro Interno",
-            icon: DollarSign,
-            color: "text-green-500",
-            bg: "bg-green-500/10",
-            description: "O bolso da JCA Contabilidade. Controle seus honorários.",
-            steps: [
-                "Lance seus honorários mensais para cada cliente.",
-                "Controle quem já pagou e quem está inadimplente.",
-                "Registre despesas internas do escritório.",
-                "Veja gráficos de receita vs. despesa."
-            ]
-        },
-        {
-            title: "Protocolos (Auditoria)",
+            title: "Protocolos Rastreados (Auditoria)",
             icon: ShieldCheck,
-            color: "text-indigo-500",
-            bg: "bg-indigo-500/10",
-            description: "Sua segurança jurídica. A prova de que você entregou o que precisava.",
-            steps: [
-                "Tudo o que é enviado gera um protocolo automático.",
-                "Você pode criar protocolos manuais para documentos físicos.",
-                "O sistema registra a data e hora exata da visualização pelo cliente.",
-                "Use isso para provar que enviou a guia antes do vencimento."
-            ]
-        },
-        {
-            title: "Estratégico (BI)",
-            icon: TrendingUp,
             color: "text-rose-500",
             bg: "bg-rose-500/10",
-            description: "Inteligência de negócios. Dados para tomada de decisão.",
+            description: "Sua prova jurídica de que um recado civil foi enviado no prazo.",
             steps: [
-                "Veja quais clientes dão mais lucro.",
-                "Identifique qual regime tributário é mais comum na sua carteira.",
-                "Analise o crescimento do escritório mês a mês."
+                "Ao enviar um documento oficial pelo sistema ou registrar uma entrega, o sistema bloqueia edição retroativa.",
+                "Quando o cliente baixa pelo login dele, o sistema assinala o minuto em que foi feito o carimbo de Data/Hora.",
+                "Você pode provar perante auditoria quem confirmou o recebimento da Guia do Simples Nacional."
             ]
         }
     ];
@@ -159,9 +134,9 @@ export default function ManualPage() {
                     <div className="absolute inset-0 bg-blue-600/20 blur-xl rounded-full group-hover:blur-2xl transition-all"></div>
                     <BookOpen className="w-12 h-12 text-blue-500 relative z-10" />
                 </div>
-                <h1 className="text-4xl font-bold text-white mb-4">Manual Completo JCA ERP</h1>
-                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                    Domine cada módulo do sistema. Clique em um tópico abaixo para entender como ele funciona.
+                <h1 className="text-4xl font-bold text-white mb-4">Central de Integração - Manual JCA ERP</h1>
+                <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+                    A cartilha para você e seus funcionários não ficarem perdidos. O sistema trabalha por você, desde que o cadastro inicial da empresa seja feito corretamente.
                 </p>
             </div>
 
@@ -202,13 +177,13 @@ export default function ManualPage() {
             </div>
 
             <div className="mt-16 bg-gradient-to-r from-blue-900/20 to-indigo-900/20 rounded-3xl p-8 border border-blue-500/20 text-center">
-                <h3 className="text-xl font-bold text-white mb-4">Ainda com dúvidas?</h3>
+                <h3 className="text-xl font-bold text-white mb-4">Feito para Acabar com a Desorganização</h3>
                 <p className="text-slate-400 mb-6">
-                    Se precisar de suporte técnico avançado, entre em contato com o desenvolvedor responsável.
+                    A regra de ouro: **Cadastre tudo no módulo Gestão de Clientes**. Se a empresa estiver vinculada a "DP" e "Fiscal", o sistema criará os bloqueios e as tarefas daquele mês para sua equipe automaticamente.
                 </p>
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-lg text-sm text-slate-300">
                     <Settings className="w-4 h-4" />
-                    <span>Versão do Sistema: 1.2.0 (Stable)</span>
+                    <span>Versão do Sistema: JCA 2.0 (Completa)</span>
                 </div>
             </div>
         </div>

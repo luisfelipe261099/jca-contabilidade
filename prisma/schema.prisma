@@ -11,33 +11,36 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
-  password  String
-  role      Role     @default(EMPLOYEE)
-  createdAt DateTime @default(now())
+  password   String
+  role       Role        @default(EMPLOYEE)
+  department Department  @default(GERAL)
+  createdAt  DateTime    @default(now())
   updatedAt DateTime @updatedAt
   clientId  String?
   clients   Client[] @relation("ResponsibleEmployee")
 }
 
 model Client {
-  id            String       @id @default(cuid())
-  name          String
-  cnpj          String       @unique
-  regime        TaxRegime
-  status        ClientStatus @default(ATENDIMENTO)
-  responsibleId String?
-  lastSync      DateTime?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  responsible   User?        @relation("ResponsibleEmployee", fields: [responsibleId], references: [id])
-  documents       Document[]
-  tasks           Task[]
-  taxes           Tax[]
-  employees       Employee[]
-  legalProcesses  LegalProcess[]
-  protocols       Protocol[]
+  id               String            @id @default(cuid())
+  name             String
+  cnpj             String            @unique
+  regime           TaxRegime
+  status           ClientStatus      @default(ATENDIMENTO)
+  services         String            @default("FISCAL,CONTABIL,DP,SOCIETARIO,FINANCEIRO")
+  responsibleId    String?
+  lastSync         DateTime?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  responsible      User?             @relation("ResponsibleEmployee", fields: [responsibleId], references: [id])
+  documents        Document[]
+  tasks            Task[]
+  taxes            Tax[]
+  employees        Employee[]
+  legalProcesses   LegalProcess[]
+  protocols        Protocol[]
   financialRecords FinancialRecord[]
-  tickets         Ticket[]
+  tickets          Ticket[]
+  credentials      Credential[]
 
   @@index([responsibleId], map: "Client_responsibleId_fkey")
 }
@@ -71,30 +74,30 @@ model Document {
 }
 
 model Tax {
-  id          String   @id @default(cuid())
-  name        String
-  amount      Float
-  dueDate     DateTime
-  status      String   @default("PENDING") // PENDING, PAID, LATE
-  clientId    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  client      Client   @relation(fields: [clientId], references: [id])
+  id        String   @id @default(cuid())
+  name      String
+  amount    Float
+  dueDate   DateTime
+  status    String   @default("PENDING") // PENDING, PAID, LATE
+  clientId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  client    Client   @relation(fields: [clientId], references: [id])
 
   @@index([clientId], map: "Tax_clientId_fkey")
 }
 
 model Employee {
-  id          String   @id @default(cuid())
-  name        String
-  role        String
+  id            String   @id @default(cuid())
+  name          String
+  role          String
   admissionDate DateTime
-  salary      Float
-  status      String   @default("ACTIVE") // ACTIVE, VACATION, TERMINATED
-  clientId    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  client      Client   @relation(fields: [clientId], references: [id])
+  salary        Float
+  status        String   @default("ACTIVE") // ACTIVE, VACATION, TERMINATED
+  clientId      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  client        Client   @relation(fields: [clientId], references: [id])
 
   @@index([clientId], map: "Employee_clientId_fkey")
 }
@@ -114,14 +117,14 @@ model LegalProcess {
 }
 
 model Protocol {
-  id          String   @id @default(cuid())
-  code        String   @unique // e.g., PRT-2026-001
+  id          String    @id @default(cuid())
+  code        String    @unique // e.g., PRT-2026-001
   type        String
   description String
   receivedAt  DateTime?
   clientId    String
-  createdAt   DateTime @default(now())
-  client      Client   @relation(fields: [clientId], references: [id])
+  createdAt   DateTime  @default(now())
+  client      Client    @relation(fields: [clientId], references: [id])
 
   @@index([clientId], map: "Protocol_clientId_fkey")
 }
@@ -172,4 +175,27 @@ enum TaxRegime {
   LUCRO_PRESUMIDO
   LUCRO_REAL
   MEI
+}
+
+enum Department {
+  GERAL
+  FISCAL
+  CONTABIL
+  DP
+  SOCIETARIO
+  FINANCEIRO
+}
+
+model Credential {
+  id          String   @id @default(cuid())
+  system      String   // ex: Gov.br, e-CAC, Conectividade Social
+  username    String
+  password    String   // Plaintext ou encriptado, mantendo simples por enquanto conforme solicitado
+  notes       String?  // Observações adicionais
+  clientId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client   @relation(fields: [clientId], references: [id])
+
+  @@index([clientId], map: "Credential_clientId_fkey")
 }

@@ -3,9 +3,31 @@ import React from 'react';
 import { Plus, Search, Building2, MoreHorizontal } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ClientForm from '@/components/admin/ClientForm';
+import { auth } from '@/auth';
+import EditClientTrigger from '@/components/admin/EditClientTrigger';
+import CredentialsTrigger from '@/components/admin/CredentialsTrigger';
 
 export default async function ClientsPage() {
+    const session = await auth();
+    const role = (session?.user as any)?.role || 'EMPLOYEE';
+    const email = session?.user?.email;
+
+    const loggedUser = email ? await prisma.user.findUnique({ where: { email } }) : null;
+    const userId = loggedUser?.id;
+    const department = loggedUser?.department || 'GERAL';
+
+    let clientWhere: any = {};
+    if (role === 'CLIENT' && loggedUser?.clientId) {
+        clientWhere.id = loggedUser.clientId;
+    } else if (role !== 'ADMIN' && department !== 'GERAL') {
+        clientWhere.OR = [
+            { responsibleId: userId },
+            { services: { contains: department } } // DP / RH needs exact substring, if department string doesn't match we might need adjusting but usually it works fine
+        ];
+    }
+
     const clients = await prisma.client.findMany({
+        where: clientWhere,
         orderBy: { name: 'asc' },
     });
 
@@ -33,6 +55,7 @@ export default async function ClientsPage() {
                                 <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Empresa</th>
                                 <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">CNPJ</th>
                                 <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Regime</th>
+                                <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Serviços Contratados</th>
                                 <th className="px-8 py-5 text-slate-500 text-xs font-bold uppercase tracking-wider">Status</th>
                                 <th className="px-8 py-5 text-right"></th>
                             </tr>
@@ -55,15 +78,23 @@ export default async function ClientsPage() {
                                         </span>
                                     </td>
                                     <td className="px-8 py-6">
+                                        <div className="flex flex-wrap gap-1 min-w-[150px] max-w-[200px]">
+                                            {client.services ? client.services.split(',').map((s: string) => (
+                                                <span key={s} className="px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded text-[9px] font-bold uppercase border border-blue-500/20">{s}</span>
+                                            )) : <span className="text-slate-500 text-[10px] italic">Sem serviços</span>}
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-6">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                            <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
                                             <span className="text-xs text-slate-300 font-medium">Ativo</span>
                                         </div>
                                     </td>
                                     <td className="px-8 py-6 text-right">
-                                        <button className="text-slate-600 hover:text-white">
-                                            <MoreHorizontal className="w-5 h-5" />
-                                        </button>
+                                        <div className="flex items-center justify-end gap-1">
+                                            <CredentialsTrigger client={client} />
+                                            <EditClientTrigger client={client} />
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

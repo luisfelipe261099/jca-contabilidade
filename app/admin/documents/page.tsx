@@ -7,12 +7,14 @@ import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 export default async function DocumentsPage() {
-    const clients = await prisma.client.findMany({ select: { id: true, name: true } });
-    const documents = await prisma.document.findMany({
-        take: 5,
-        orderBy: { createdAt: 'desc' },
-        include: { client: true }
-    });
+    const [clients, documents] = await Promise.all([
+        prisma.client.findMany({ select: { id: true, name: true } }),
+        prisma.document.findMany({
+            take: 5,
+            orderBy: { createdAt: 'desc' },
+            include: { client: true }
+        })
+    ]);
 
     return (
         <div className="p-8">

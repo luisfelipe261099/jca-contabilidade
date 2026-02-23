@@ -246,6 +246,7 @@ export async function createUser(formData: FormData) {
         const password = formData.get('password') as string;
         const role = formData.get('role') as string;
         const clientId = (formData.get('clientId') as string) || null;
+        const department = (formData.get('department') as string) || 'GERAL';
 
         // Check if user already exists
         const existing = await prisma.user.findUnique({ where: { email } });
@@ -265,6 +266,7 @@ export async function createUser(formData: FormData) {
                 name,
                 password: hashedPassword,
                 role: role as any,
+                department: role === 'EMPLOYEE' ? department as any : 'GERAL',
                 clientId: clientId || undefined,
             }
         });

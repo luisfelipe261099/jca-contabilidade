@@ -4,15 +4,18 @@ import prisma from '@/lib/prisma';
 import DPActions from '@/components/admin/DPActions';
 
 export default async function DPPage() {
-    const employees = await prisma.employee.findMany({
-        include: { client: true },
-        orderBy: { name: 'asc' }
-    });
-
-    const clients = await prisma.client.findMany({
-        select: { id: true, name: true },
-        orderBy: { name: 'asc' }
-    });
+    const [employees, clients] = await Promise.all([
+        prisma.employee.findMany({
+            where: { client: { services: { contains: 'DP' } } },
+            include: { client: true },
+            orderBy: { name: 'asc' }
+        }),
+        prisma.client.findMany({
+            where: { services: { contains: 'DP' } },
+            select: { id: true, name: true },
+            orderBy: { name: 'asc' }
+        })
+    ]);
 
     const totalEmployees = employees.length;
     const activeEmployees = employees.filter((e: any) => e.status === 'ACTIVE').length;

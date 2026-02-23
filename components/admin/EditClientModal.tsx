@@ -90,6 +90,17 @@ export default function EditClientModal({ client, isOpen, onClose }: EditClientM
                                 <option value="MEI">MEI</option>
                             </select>
                         </div>
+                        <div>
+                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Serviços Contratados</label>
+                            <div className="flex flex-wrap gap-2">
+                                {['FISCAL', 'CONTABIL', 'DP / RH', 'SOCIETARIO', 'FINANCEIRO', 'IMPOSTO DE RENDA', 'BPO FINANCEIRO', 'ALVARÁ', 'CERTIFICADO DIGITAL'].map((s) => (
+                                    <label key={s} className="flex items-center gap-2 text-white bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg cursor-pointer hover:border-blue-500 transition-all">
+                                        <input type="checkbox" name="services" value={s} defaultChecked={client.services?.includes(s)} className="w-3.5 h-3.5 accent-blue-600 cursor-pointer" />
+                                        <span className="text-sm font-bold">{s}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                     <div className="flex flex-col gap-3 pt-4">
@@ -107,8 +118,8 @@ export default function EditClientModal({ client, isOpen, onClose }: EditClientM
                             onClick={handleDelete}
                             disabled={loading}
                             className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${showDeleteConfirm
-                                    ? 'bg-rose-600 hover:bg-rose-500 text-white'
-                                    : 'bg-slate-800/50 hover:bg-rose-500/10 text-slate-400 hover:text-rose-500'
+                                ? 'bg-rose-600 hover:bg-rose-500 text-white'
+                                : 'bg-slate-800/50 hover:bg-rose-500/10 text-slate-400 hover:text-rose-500'
                                 }`}
                         >
                             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
