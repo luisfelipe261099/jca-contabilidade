@@ -33,11 +33,9 @@ export default function LoginPage() {
                 } else {
                     setError(`Erro: ${res.error}. Verifique a conexão com o banco.`);
                 }
-            } else if (res?.url) {
-                // Força o redirecionamento se o NextAuth retornou uma URL
-                window.location.href = res.url;
             } else {
-                router.push('/admin/dashboard');
+                // Força um recarregamento da página para que o Layout/Middleware os direcione corretamente
+                window.location.href = '/admin/dashboard';
             }
         } catch (err: any) {
             setError('Erro de conexão com o servidor.');

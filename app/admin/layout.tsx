@@ -1,24 +1,24 @@
-'use client';
+export const dynamic = 'force-dynamic';
 
-import Sidebar from '@/components/admin/Sidebar';
-import { usePathname } from 'next/navigation';
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+import AdminLayoutContent from '@/components/admin/AdminLayoutContent';
 
-export default function AdminLayout({
+export default async function AdminLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const pathname = usePathname();
-    const isLoginPage = pathname === '/admin/login';
+    const session = await auth();
+    const user = session?.user as any;
+
+    if (user && user.role === 'CLIENT') {
+        redirect('/client/dashboard');
+    }
 
     return (
-        <div className="min-h-screen bg-[#020617] print:bg-white">
-            {!isLoginPage && <Sidebar />}
-            <main className={`min-h-screen ${!isLoginPage ? 'pt-16 lg:pt-0 lg:pl-64 print:pl-0 print:pt-0' : ''}`}>
-                <div className="w-full">
-                    {children}
-                </div>
-            </main>
-        </div>
+        <AdminLayoutContent>
+            {children}
+        </AdminLayoutContent>
     );
 }

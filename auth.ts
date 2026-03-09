@@ -7,24 +7,6 @@ import bcrypt from 'bcryptjs';
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig,
-    callbacks: {
-        async jwt({ token, user }: any) {
-            if (user) {
-                token.role = user.role;
-                token.clientId = user.clientId;
-                token.department = user.department;
-            }
-            return token;
-        },
-        async session({ session, token }: any) {
-            if (token) {
-                session.user.role = token.role;
-                session.user.clientId = token.clientId;
-                session.user.department = token.department;
-            }
-            return session;
-        },
-    },
     providers: [
         Credentials({
             async authorize(credentials) {

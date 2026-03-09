@@ -5,6 +5,22 @@ export const authConfig = {
         signIn: '/admin/login',
     },
     callbacks: {
+        async jwt({ token, user }: any) {
+            if (user) {
+                token.role = user.role;
+                token.clientId = user.clientId;
+                token.department = user.department;
+            }
+            return token;
+        },
+        async session({ session, token }: any) {
+            if (token) {
+                session.user.role = token.role as string;
+                session.user.clientId = token.clientId as string | null;
+                session.user.department = token.department as string;
+            }
+            return session;
+        },
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             const userRole = (auth?.user as any)?.role; // Casting to any because User type might not have role yet in types
