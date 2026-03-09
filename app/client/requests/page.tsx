@@ -2,7 +2,8 @@ export const dynamic = 'force-dynamic';
 
 import prisma from '@/lib/prisma';
 import { auth } from '@/auth';
-import { MessageSquarePlus, Clock, CheckCircle, MessageCircle, ArrowLeft, AlertCircle } from 'lucide-react';
+import NewTicketModal from '@/components/client/NewTicketModal';
+import { Clock, CheckCircle, MessageCircle, ArrowLeft, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 
@@ -40,10 +41,7 @@ export default async function ClientRequestsPage() {
                         <h1 className="text-4xl font-bold tracking-tighter uppercase italic">Minhas Solicitações</h1>
                         <p className="text-slate-500 mt-2">Abra chamados e tire dúvidas com a equipe JCA.</p>
                     </div>
-                    <button className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-blue-900/20 flex items-center gap-2">
-                        <MessageSquarePlus className="w-5 h-5" />
-                        Nova Solicitação
-                    </button>
+                    <NewTicketModal clientId={clientId} />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -21,6 +21,7 @@ export async function createTicket(formData: FormData) {
         });
 
         revalidatePath('/admin/tickets');
+        revalidatePath('/client/requests');
         return { success: true };
     } catch (error) {
         console.error('Failed to create ticket:', error);
