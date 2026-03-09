@@ -134,6 +134,7 @@ export async function deleteClient(id: string) {
         await prisma.tax.deleteMany({ where: { clientId: id } });
         await prisma.task.deleteMany({ where: { clientId: id } });
         await prisma.document.deleteMany({ where: { clientId: id } });
+        await prisma.user.deleteMany({ where: { clientId: id } });
 
         await prisma.client.delete({
             where: { id },

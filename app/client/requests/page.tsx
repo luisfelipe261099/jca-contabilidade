@@ -30,14 +30,10 @@ export default async function ClientRequestsPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#020617] text-white p-6 md:p-12">
+        <div className="text-white p-6 md:p-12">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-10 flex items-center justify-between">
                     <div>
-                        <Link href="/client/dashboard" className="text-blue-500 flex items-center gap-2 text-sm font-bold mb-4 hover:underline">
-                            <ArrowLeft className="w-4 h-4" />
-                            Voltar ao Dashboard
-                        </Link>
                         <h1 className="text-4xl font-bold tracking-tighter uppercase italic">Minhas Solicitações</h1>
                         <p className="text-slate-500 mt-2">Abra chamados e tire dúvidas com a equipe JCA.</p>
                     </div>

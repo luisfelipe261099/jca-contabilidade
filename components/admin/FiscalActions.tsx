@@ -125,6 +125,11 @@ export default function FiscalActions({ taxes, clients }: { taxes: Tax[]; client
                                 <option value="LATE">Atrasado</option>
                             </select>
                         </div>
+                        <div className="md:col-span-2 lg:col-span-1">
+                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Anexar Boleto / Guia (PDF)</label>
+                            <input name="file" type="file" accept=".pdf"
+                                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-4 text-white text-xs file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer" />
+                        </div>
                     </div>
                     <button type="submit" disabled={loading}
                         className="bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 text-white px-8 py-3 rounded-xl font-bold transition-all flex items-center gap-2">

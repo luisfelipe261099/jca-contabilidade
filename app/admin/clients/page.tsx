@@ -6,6 +6,8 @@ import ClientForm from '@/components/admin/ClientForm';
 import { auth } from '@/auth';
 import EditClientTrigger from '@/components/admin/EditClientTrigger';
 import CredentialsTrigger from '@/components/admin/CredentialsTrigger';
+import CreateClientAccessTrigger from '@/components/admin/CreateClientAccessTrigger';
+import DeleteClientButton from '@/components/admin/DeleteClientButton';
 
 export default async function ClientsPage() {
     const session = await auth();
@@ -92,8 +94,10 @@ export default async function ClientsPage() {
                                     </td>
                                     <td className="px-2 sm:px-8 py-4 sm:py-6 text-right">
                                         <div className="flex items-center justify-end gap-1">
+                                            <CreateClientAccessTrigger client={client} />
                                             <CredentialsTrigger client={client} />
                                             <EditClientTrigger client={client} />
+                                            <DeleteClientButton id={client.id} />
                                         </div>
                                     </td>
                                 </tr>

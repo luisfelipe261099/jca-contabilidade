@@ -12,12 +12,31 @@ export async function createTax(formData: FormData) {
         const dueDate = new Date(formData.get('dueDate') as string);
         const clientId = formData.get('clientId') as string;
         const status = (formData.get('status') as string) || 'PENDING';
+        const file = formData.get('file') as File;
 
-        await prisma.tax.create({
+        // 1. Create Tax record
+        const tax = await prisma.tax.create({
             data: { name, amount, dueDate, status, clientId }
         });
 
+        // 2. If file provided, save as Document
+        if (file && file.size > 0) {
+            const arrayBuffer = await file.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+
+            await prisma.document.create({
+                data: {
+                    name: `Guia ${name} - ${new Intl.DateTimeFormat('pt-BR').format(dueDate)}`,
+                    url: `/uploads/${file.name}`,
+                    type: 'IMPOSTO',
+                    clientId,
+                    content: buffer
+                }
+            });
+        }
+
         revalidatePath('/admin/fiscal');
+        revalidatePath('/client/dashboard');
         return { success: true };
     } catch (error: any) {
         console.error('Create tax error:', error);
