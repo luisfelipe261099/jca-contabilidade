@@ -72,7 +72,7 @@ export async function launchDocument(formData: FormData) {
             data: {
                 name: fileName,
                 url: `/uploads/${fileName}`,
-                type: 'OUTROS',
+                type: (formData.get('type') as any) || 'OUTROS',
                 clientId,
                 content: buffer
             }
