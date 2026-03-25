@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Nunito_Sans } from "next/font/google";
+import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const montserrat = Montserrat({
     subsets: ["latin"],

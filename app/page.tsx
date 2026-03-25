@@ -6,8 +6,7 @@ import About from '../components/About';
 import Services from '../components/Services';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+import { siteUrl } from '@/lib/site-url';
 
 export const metadata: Metadata = {
     title: 'Contabilidade em Curitiba para Empresas e MEI',
