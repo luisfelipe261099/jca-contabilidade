@@ -1,7 +1,16 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { ExternalLink, Building2, Globe2, Calculator } from 'lucide-react';
+
+export const metadata: Metadata = {
+    title: 'Links e Recursos Contabeis',
+    description: 'Acesse links uteis de Receita Federal, Simples Nacional, Jucepar, Nota Curitiba e consultas fiscais para empresas.',
+    alternates: {
+        canonical: '/apoio',
+    },
+};
 
 export default function ApoioPage() {
     const categories = [

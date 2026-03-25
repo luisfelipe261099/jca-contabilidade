@@ -1,9 +1,22 @@
 export const dynamic = 'force-dynamic';
+import type { Metadata } from 'next';
 
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import ClientNavbar from '@/components/client/ClientNavbar';
+
+export const metadata: Metadata = {
+    robots: {
+        index: false,
+        follow: false,
+        googleBot: {
+            index: false,
+            follow: false,
+            noimageindex: true,
+        },
+    },
+};
 
 export default async function ClientLayout({
     children,
