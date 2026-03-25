@@ -28,7 +28,7 @@ export default async function ClientDashboard() {
                 <div className="max-w-md">
                     <AlertCircle className="w-16 h-16 text-rose-500 mx-auto mb-6" />
                     <h1 className="text-2xl font-bold text-white mb-2">Acesso Restrito</h1>
-                    <p className="text-slate-400">Este usuário não está vinculado a nenhuma empresa. Por favor, entre em contato com a JCA Contabilidade.</p>
+                    <p className="text-slate-400">Este usuário não está vinculado a nenhuma empresa. Por favor, entre em contato com a JCC Jade Cristina Contabilidade.</p>
                 </div>
             </div>
         );
@@ -180,7 +180,7 @@ export default async function ClientDashboard() {
                             <div className="space-y-3">
                                 <div className="text-[11px] text-slate-400">Entre em contato direto com seu contador via WhatsApp:</div>
                                 <button className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-all">
-                                    Iniciar Chat JCA
+                                    Iniciar Chat JCC
                                 </button>
                             </div>
                         </div>

@@ -76,7 +76,7 @@ export default function Sidebar() {
                         J
                     </div>
                     <div className="min-w-0">
-                        <h1 className="text-white font-bold leading-none">JCA ERP</h1>
+                        <h1 className="text-white font-bold leading-none">JCC ERP</h1>
                         <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">
                             {role === 'ADMIN' ? 'Admin Panel' : `Panel - ${department}`}
                         </span>
@@ -126,7 +126,7 @@ export default function Sidebar() {
                     <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-sm">
                         J
                     </div>
-                    <span className="text-white font-bold text-sm">JCA ERP</span>
+                    <span className="text-white font-bold text-sm">JCC ERP</span>
                 </div>
                 <button
                     onClick={() => setMobileOpen(!mobileOpen)}

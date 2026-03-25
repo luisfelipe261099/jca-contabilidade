@@ -38,7 +38,7 @@ export default async function ClientsPage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Gestão de Clientes</h1>
-                    <p className="text-slate-400 text-sm sm:text-base">Cadastre e gerencie a carteira da JCA.</p>
+                    <p className="text-slate-400 text-sm sm:text-base">Cadastre e gerencie a carteira da JCC.</p>
                 </div>
                 <button className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all w-full sm:w-auto">
                     <Plus className="w-5 h-5" />

@@ -56,7 +56,7 @@ export default function LoginPage() {
                 <div className="text-center mb-10">
                     <Logo size="xl" className="justify-center mb-6" showText={false} />
                     <h1 className="text-3xl font-bold text-white mb-2">Acesso Restrito</h1>
-                    <p className="text-slate-400">Portal Interno JCA Contabilidade</p>
+                    <p className="text-slate-400">Portal Interno JCC Jade Cristina Contabilidade</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

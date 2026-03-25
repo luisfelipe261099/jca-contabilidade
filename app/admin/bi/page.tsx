@@ -22,7 +22,7 @@ export default async function BIPage() {
     ];
 
     const topClients = [
-        { name: 'Indústria Metalúrgica JCA', revenue: 'R$ 25.400', share: '18%' },
+        { name: 'Indústria Metalúrgica JCC', revenue: 'R$ 25.400', share: '18%' },
         { name: 'Transportes Rápidos', revenue: 'R$ 18.200', share: '13%' },
         { name: 'Comércio de Grãos LTDA', revenue: 'R$ 15.600', share: '11%' },
         { name: 'Serviços de Tecnologia', revenue: 'R$ 12.100', share: '8%' },
@@ -33,7 +33,7 @@ export default async function BIPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Estratégico & BI</h1>
-                    <p className="text-slate-400">Visão analítica e indicadores de performance da JCA.</p>
+                    <p className="text-slate-400">Visão analítica e indicadores de performance da JCC.</p>
                 </div>
                 <div className="flex gap-4">
                     <div className="bg-slate-900/50 border border-slate-800 rounded-xl px-4 py-2 flex items-center gap-2 text-slate-300 text-sm">

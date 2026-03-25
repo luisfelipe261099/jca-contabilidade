@@ -124,7 +124,7 @@ export default function ClientUploadPage() {
                 </div>
 
                 <div className="mt-12 text-center text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em]">
-                    Criptografia de Ponta-a-Ponta • JCA Soluções Contábeis
+                    Criptografia de Ponta-a-Ponta • JCC Jade Cristina Contabilidade
                 </div>
             </div>
         </div>

@@ -134,7 +134,7 @@ export default function ManualPage() {
                     <div className="absolute inset-0 bg-blue-600/20 blur-xl rounded-full group-hover:blur-2xl transition-all"></div>
                     <BookOpen className="w-12 h-12 text-blue-500 relative z-10" />
                 </div>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">Central de Integração - Manual JCA ERP</h1>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">Central de Integração - Manual JCC ERP</h1>
                 <p className="text-lg text-slate-400 max-w-3xl mx-auto">
                     A cartilha para você e seus funcionários não ficarem perdidos. O sistema trabalha por você, desde que o cadastro inicial da empresa seja feito corretamente.
                 </p>

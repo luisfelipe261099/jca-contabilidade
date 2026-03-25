@@ -1,6 +1,6 @@
-# JCA Contabilidade - Landing Page
+# JCC Jade Cristina Contabilidade - Landing Page
 
-This is the official landing page for JCA Contabilidade, built with Next.js and Tailwind CSS.
+This is the official landing page for JCC Jade Cristina Contabilidade, built with Next.js and Tailwind CSS.
 
 ## Getting Started
 

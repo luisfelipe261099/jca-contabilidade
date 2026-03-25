@@ -35,7 +35,7 @@ export default async function ClientRequestsPage() {
                 <div className="mb-10 flex items-center justify-between">
                     <div>
                         <h1 className="text-4xl font-bold tracking-tighter uppercase italic">Minhas Solicitações</h1>
-                        <p className="text-slate-500 mt-2">Abra chamados e tire dúvidas com a equipe JCA.</p>
+                        <p className="text-slate-500 mt-2">Abra chamados e tire dúvidas com a equipe JCC.</p>
                     </div>
                     <NewTicketModal clientId={clientId} />
                 </div>

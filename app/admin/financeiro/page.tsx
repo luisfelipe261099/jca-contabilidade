@@ -29,7 +29,7 @@ export default async function FinanceiroPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Financeiro Interno</h1>
-                    <p className="text-slate-400">Gestão de honorários, faturamento e saúde financeira da JCA.</p>
+                    <p className="text-slate-400">Gestão de honorários, faturamento e saúde financeira da JCC.</p>
                 </div>
             </div>
 

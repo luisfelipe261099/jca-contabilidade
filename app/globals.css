@@ -3,29 +3,87 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --jc-blue: #007cc3;
+  --jc-blue-strong: #005a91;
+  --jc-teal: #4bc0b0;
+  --jc-teal-strong: #2b9f90;
+  --jc-ink: #0b2f47;
+  --jc-surface: #f3fafc;
+  --jc-text: #163244;
+  --jc-muted: #5c7384;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  color: var(--jc-text);
+  font-family: var(--font-body), sans-serif;
+  background:
+    radial-gradient(circle at 8% 15%, rgba(0, 124, 195, 0.13), transparent 38%),
+    radial-gradient(circle at 88% 5%, rgba(75, 192, 176, 0.2), transparent 34%),
+    linear-gradient(145deg, #f8fdff 0%, var(--jc-surface) 55%, #eef8fc 100%);
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), sans-serif;
+  color: var(--jc-ink);
+}
+
+a {
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+section {
+  scroll-margin-top: 110px;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .brand-grid {
+    background-image:
+      linear-gradient(to right, rgba(0, 124, 195, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 124, 195, 0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  .brand-card {
+    @apply rounded-3xl border border-sky-100/90 bg-white/80 shadow-[0_18px_50px_rgba(8,66,103,0.12)] backdrop-blur-xl;
+  }
+
+  .reveal-up {
+    animation: reveal-up 700ms cubic-bezier(0.2, 0.65, 0.2, 1) both;
+  }
+
+  .pulse-soft {
+    animation: pulse-soft 4.5s ease-in-out infinite;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 

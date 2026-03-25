@@ -3,23 +3,23 @@ import Logo from './Logo';
 
 export default function Footer() {
     return (
-        <footer className="py-12 px-6 bg-[#020617] border-t border-slate-900">
+        <footer className="py-12 px-6 mt-8 border-t border-sky-100 bg-white/80 backdrop-blur-sm">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="flex flex-col gap-2">
                     <Logo size="sm" />
-                    <p className="text-xs text-slate-500 max-w-xs leading-relaxed pl-11">
+                    <p className="text-xs text-[#5A7385] font-semibold max-w-xs leading-relaxed pl-11">
                         CRC-SP 12345/O-0 • CNPJ 59.224.736/0001-96<br />
                         Curitiba - PR
                     </p>
                 </div>
 
                 <div className="flex flex-col items-center md:items-end gap-1">
-                    <div className="text-slate-500 text-sm">
-                        © {new Date().getFullYear()} JCA Soluções Contábeis.
+                    <div className="text-[#587184] text-sm font-semibold">
+                        © {new Date().getFullYear()} JCC Jade Cristina Contabilidade.
                     </div>
-                    <div className="flex gap-6 text-xs font-medium text-slate-400">
-                        <a href="#" className="hover:text-white transition-colors">Privacidade</a>
-                        <a href="#" className="hover:text-white transition-colors">Termos</a>
+                    <div className="flex gap-6 text-xs font-extrabold text-[#406074] uppercase tracking-[0.12em]">
+                        <a href="https://www.instagram.com/jc_contabilidade_cwb/" target="_blank" rel="noreferrer" className="hover:text-[#007CC3] transition-colors">Instagram</a>
+                        <a href="#contato" className="hover:text-[#007CC3] transition-colors">Contato</a>
                     </div>
                 </div>
             </div>

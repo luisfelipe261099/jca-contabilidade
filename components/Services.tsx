@@ -47,15 +47,15 @@ export default function Services() {
     ];
 
     return (
-        <section id="servicos" className="py-24 px-6 bg-[#020617]">
+        <section id="servicos" className="py-24 px-6">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        Tudo o que sua empresa precisa <br />
-                        <span className="text-blue-500">em um só lugar.</span>
+                <div className="text-center mb-14 reveal-up">
+                    <h2 className="text-3xl md:text-5xl font-black text-[#0B2F47] mb-6">
+                        Tudo que sua empresa precisa
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#007CC3] to-[#33B8AE]">em um so ecossistema.</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto">
-                        Da burocracia à estratégia. Nossos especialistas cuidam de cada detalhe para que você tenha tranquilidade e foco no crescimento.
+                    <p className="text-[#4A687D] max-w-2xl mx-auto font-semibold">
+                        Da burocracia a estrategia. Nosso time cuida de cada etapa para voce focar em decisao, crescimento e caixa saudavel.
                     </p>
                 </div>
 

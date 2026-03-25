@@ -23,7 +23,7 @@ export default function ClientNavbar({ clientName, cnpj }: { clientName: string,
                     <Link href="/client/dashboard" className="flex items-center gap-3 group">
                         <Logo size="sm" />
                         <div>
-                            <h1 className="text-white font-bold leading-none uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Portal JCA</h1>
+                            <h1 className="text-white font-bold leading-none uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Portal JCC</h1>
                             <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Área do Cliente</span>
                         </div>
                     </Link>
